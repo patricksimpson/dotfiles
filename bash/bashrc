@@ -1,0 +1,4 @@
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+alias tmux="TERM=screen-256color-bce tmux"
+CONTENTFUL_API_KEY=fee5514f378e237238beb8005413cf55d00f7200e3b2caeb4d44723b123d354b
+PATH="/usr/local/bin:$PATH"

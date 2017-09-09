@@ -1,0 +1,11 @@
+ac-comphist.dat
+authinfo.gpg
+elpa/
+erc/
+eshell/
+auto-save-list/
+irc-accounts
+irc-accounts.gpg
+projectile*
+recentf
+snippets/*
