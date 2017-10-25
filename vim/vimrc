@@ -1,9 +1,12 @@
-" Include bundle
-source ~/.vim/bundle.vim
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" Automatically detect file types.
-set nocompatible
-filetype plugin indent on
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+
+source ~/.vim/bundle.vim
 
 " Load settings
 source ~/.vim/settings.vim
