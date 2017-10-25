@@ -6,6 +6,7 @@
   (interactive)
   (text-scale-set 0)))
 
+
 (setq window-saved "nothing")
 
 (defun gen-multi-term ()
@@ -60,6 +61,8 @@
     (async-shell-command (car shell-command-history))
   )
 )
+(setq key-chord-two-keys-delay 1)
+(key-chord-define evil-normal-state-map "gc" 'simpson-comment)
 
 (global-set-key (kbd "C-SPC .") 'simpson-rerun)
 
@@ -78,6 +81,16 @@
   (setq window-saved "saved")
   (window-configuration-to-register 0)
   (delete-other-windows))
+
+(defun simpson-comment ()
+   "Comments or uncomments the region or the current line if there's no active region."
+    (interactive)
+    (let (beg end)
+        (if (region-active-p)
+            (setq beg (region-beginning) end (region-end))
+            (setq beg (line-beginning-position) end (line-end-position)))
+        (comment-or-uncomment-region beg end)
+        (next-line)))
 
 (defun restore-windows ()
   "restores windows position"

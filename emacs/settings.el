@@ -14,6 +14,10 @@
 (setq visible-bell nil)
 (show-paren-mode)
 
+(require 'key-chord)
+(key-chord-mode 1)
+(setq key-chord-two-keys-delay 0.1)
+
 (setq ring-bell-function (lambda ()
     (invert-face 'mode-line)
     (run-with-timer 0.1 nil 'invert-face 'mode-line)
