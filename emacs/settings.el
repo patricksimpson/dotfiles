@@ -238,6 +238,7 @@
   (interactive)
   (cd "~/github/")
   (helm-find-files nil)
+  (neotree-refresh)
 )
 
 (use-package magit
@@ -748,3 +749,5 @@
 
 ; (require 'erc-slack-log)
 ; (erc-slack-log-enable)
+
+(setq neo-autorefresh t)
