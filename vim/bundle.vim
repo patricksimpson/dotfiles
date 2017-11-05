@@ -1,7 +1,15 @@
 " ===========
 " B U N D L E
 " ===========
-" Set the runtime path to include Vundle and initialize
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+set rtp+=~/dotfiles/vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
 Plugin 'tomtom/tcomment_vim'
