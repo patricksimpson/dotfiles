@@ -33,7 +33,13 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(use-package all-the-icons)
+(use-package all-the-icons
+  :defer 1
+  :config (progn
+    (unless (file-exists-p "~/Library/Fonts/all-the-icons.ttf")
+      (all-the-icons-install-fonts t))
+  )
+)
 
 (use-package neotree
   :ensure t
