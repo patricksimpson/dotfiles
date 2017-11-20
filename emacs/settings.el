@@ -433,8 +433,8 @@
 (setq-default css-indent-offset 2)
 
 ;fonts
-(set-face-attribute 'default nil :font "Monaco-13")
-(set-frame-font "Monaco-13" nil t)
+(set-face-attribute 'default nil :font "Monaco-12")
+(set-frame-font "Monaco-12" nil t)
 
 ;modes w/ file extensions
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -489,7 +489,7 @@
 (defun simpson-header ()
   (setq header-line-format
     (list
-      ;16 characters = /Users/asimpson/
+      ;16 characters = /Users/patrick
       (if (stringp (buffer-file-name))
         (eval (concat " ▼ ../" (substring (buffer-file-name) 16 nil)))
       "¯\\_(ツ)_/¯"
@@ -508,7 +508,7 @@
 (set-face-background 'header-line "#323536")
 
 (set-face-attribute 'header-line nil
-    :box '(:line-width 3 :color "#323536" :style nil))
+    :box '(:line-width 1 :color "#323536" :style nil))
 
 (setenv "GPG_AGENT" "/usr/local/bin/gpg-agent")
 ;;read gpg-agent environment
@@ -756,4 +756,72 @@
 ; (require 'erc-slack-log)
 ; (erc-slack-log-enable)
 
-(setq neo-autorefresh t)
+;; (setq neo-autorefresh t)
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+(add-hook 'js2-mode-hook #'setup-tide-mode)
+
+;; configure javascript-tide checker to run after your default javascript checker
+;; Need to install tslint binary (npm install -g tslint)
+(flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
+
+
+(use-package hydra
+  :defer 1
+  :config (progn
+            (global-set-key (kbd "C-SPC x") 'hydra-js2/body)
+            (global-set-key (kbd "C-SPC v") 'hydra-vimish/body)
+            (global-set-key (kbd "C-SPC t") 'hydra-tide/body)
+            ))
+
+
+
+(defhydra hydra-js2 ()
+  "
+    JS2 Folding/Narrowing:
+    _n_ narrow to defun
+    _v_ fold
+    _d_ highlight defun
+  "
+  ("n" js2-narrow-to-defun "narrow to defun" :exit t)
+  ("v" vimish-fold "fold")
+  ("d" js2-mark-defun "highlight defun"))
+
+(defhydra hydra-vimish (:exit t)
+  "
+    Vimish Folding
+    _v_ fold
+    _V_ unfold
+    _x_ delete all folds
+  "
+  ("V" vimish-fold-delete "unfold")
+  ("v" vimish-fold "fold")
+  ("x" vimish-fold-delete-all "delete all"))
+
+(defhydra hydra-tide (:exit t)
+  "
+    Tide Options
+    _d_ documentation-at-point
+    _J_ Add jsDoc at point
+  "
+  ("d" tide-documentation-at-point)
+  ("J" tide-jsdoc-template))
