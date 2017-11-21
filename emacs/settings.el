@@ -131,8 +131,16 @@
   :diminish "lint"
   :init (add-hook 'after-init-hook #'global-flycheck-mode)
   :bind ("C-SPC '" . flycheck-mode)
-  :config (setq-default flycheck-disabled-checkers (list 'javascript-jshint 'emacs-lisp-checkdoc 'emacs-lisp 'json-jsonlist))
+  :config (progn
+           (setq-default flycheck-disabled-checkers (list 'javascript-jshint 'emacs-lisp-checkdoc 'emacs-lisp 'json-jsonlist)))
 )
+
+(use-package tide
+  :after flycheck
+  :defer 1
+  :config (progn
+           (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
+            ))
 
 (use-package evil
   :ensure t
@@ -775,14 +783,8 @@
 
 ;; formats the buffer before saving
 (add-hook 'before-save-hook 'tide-format-before-save)
-
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
-
 (add-hook 'js2-mode-hook #'setup-tide-mode)
-
-;; configure javascript-tide checker to run after your default javascript checker
-;; Need to install tslint binary (npm install -g tslint)
-(flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
 
 
 (use-package hydra

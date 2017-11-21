@@ -74,6 +74,7 @@
 ;widen
 (global-set-key (kbd "C-SPC N") 'widen)
 
+
 (defun save-windows ()
   "saves windows position"
   (interactive)
@@ -97,6 +98,13 @@
   (interactive)
   (setq window-saved "nothing")
   (jump-to-register 0))
+
+;Move buffers with neotree-hide
+(advice-add 'evil-window-move-far-right
+            :before 'neotree-hide)
+
+(advice-add 'evil-window-move-far-left
+            :before 'neotree-hide)
 
 ;; (defun print-path ()
 ;;   "Print out current buffer path"
