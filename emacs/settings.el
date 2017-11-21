@@ -786,11 +786,20 @@
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 (add-hook 'js2-mode-hook #'setup-tide-mode)
 
+(use-package ivy
+  :ensure t)
+
+(use-package ivy-window-configuration
+  :ensure nil
+  :if (file-exists-p "/Users/patrick/dotfiles/emacs/ivy-window-configuration/")
+  :load-path "/Users/patrick/dotfiles/emacs/ivy-window-configuration/")
 
 (use-package hydra
+  :ensure t
   :defer 1
   :config (progn
             (global-set-key (kbd "C-SPC x") 'hydra-js2/body)
+            (global-set-key (kbd "C-SPC z") 'ivy-window-configuration--hydra/body)
             (global-set-key (kbd "C-SPC v") 'hydra-vimish/body)
             (global-set-key (kbd "C-SPC t") 'hydra-tide/body)
             ))
