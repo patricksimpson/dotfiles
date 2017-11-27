@@ -66,22 +66,12 @@
 
 (global-set-key (kbd "C-SPC .") 'simpson-rerun)
 
-(global-set-key (kbd "C-SPC z s") 'save-windows)
-(global-set-key (kbd "C-SPC z l") 'restore-windows)
 
 ;narrow region
 (global-set-key (kbd "C-SPC n") 'narrow-to-region)
 ;widen
 (global-set-key (kbd "C-SPC N") 'widen)
 
-
-(defun save-windows ()
-  "saves windows position"
-  (interactive)
-  (message "window saved")
-  (setq window-saved "saved")
-  (window-configuration-to-register 0)
-  (delete-other-windows))
 
 (defun simpson-comment ()
    "Comments or uncomments the region or the current line if there's no active region."
@@ -92,12 +82,6 @@
             (setq beg (line-beginning-position) end (line-end-position)))
         (comment-or-uncomment-region beg end)
         (next-line)))
-
-(defun restore-windows ()
-  "restores windows position"
-  (interactive)
-  (setq window-saved "nothing")
-  (jump-to-register 0))
 
 ;Move buffers with neotree-hide
 (advice-add 'evil-window-move-far-right
@@ -163,3 +147,8 @@
   (interactive)
   (erc-cmd-GQ nil)
 )
+
+;; Dired mode additions (evil):
+(define-key dired-mode-map "j" 'dired-next-line)
+(define-key dired-mode-map "k" 'dired-previous-line)
+(define-key dired-mode-map "r" 'helm-ag)
