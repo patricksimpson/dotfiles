@@ -822,6 +822,42 @@
   ("d" tide-documentation-at-point)
   ("J" tide-jsdoc-template))
 
+(defhydra hydra-emacs-settings (:exit t)
+  "
+    Emacs Settings
+    _e_ edit emacs file
+    _k_ edit keybinds file
+    _s_ edit settings file
+    _r_ reload all settings
+    _b_ eval current buffer
+  "
+  ("s" open-my-settings-file)
+  ("k" open-my-keybinds-file)
+  ("e" open-my-init-file)
+  ("r" reload-my-config)
+  ("b" eval-buffer))
+
+(global-set-key (kbd "C-SPC s") 'hydra-emacs-settings/body)
+
+(defun open-my-keybinds-file()
+ "Open the keybinds file."
+  (interactive)
+  (find-file "~/dotfiles/emacs/keybinds.el"))
+
+(defun open-my-settings-file()
+ "Open the settings file."
+  (interactive)
+  (find-file "~/dotfiles/emacs/settings.el"))
+
+(defun open-my-init-file()
+ "Open the init file."
+  (interactive)
+  (find-file "~/dotfiles/emacs/.emacs"))
+
+(defun reload-my-config() 
+ "reload config"
+ (interactive)
+ (load-file "~/dotfiles/emacs/.emacs"))
 
 (defhydra hydra-help (:exit t)
   "
