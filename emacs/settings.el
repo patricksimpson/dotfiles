@@ -388,22 +388,6 @@
   )
 )
 
-(use-package markdown-mode
-  :ensure t
-  :mode (
-    ("\\.md\\'" . markdown-mode)
-  )
-  :config (progn
-    ;add custom fonts for markdown mode
-    (add-hook 'markdown-mode-hook 'markdown-fonts)
-    ;toggle on visual line mode for writing
-    (add-hook 'markdown-mode-hook 'visual-line-mode)
-    ;toggle on spell-check for writing
-    (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
-    (setq markdown-open-command "/usr/local/bin/marked")
-  )
-)
-
 (use-package js2-mode
   :ensure t
   :diminish "JS"
@@ -806,6 +790,7 @@
 
 
 
+
 (defhydra hydra-js2 ()
   "
     JS2 Folding/Narrowing:
@@ -836,3 +821,19 @@
   "
   ("d" tide-documentation-at-point)
   ("J" tide-jsdoc-template))
+
+
+(defhydra hydra-help (:exit t)
+  "
+    Describe things
+    _v_ describe variables
+    _f_ describe function
+    _s_ describe symbol
+    _m_ describe mode
+  "
+  ("v" describe-variable "describe variable")
+  ("f" describe-function "describe function")
+  ("s" describe-symbol "describe symbol")
+  ("m" describe-mode "describe mode"))
+
+(global-set-key (kbd "C-SPC ?") 'hydra-help/body)
