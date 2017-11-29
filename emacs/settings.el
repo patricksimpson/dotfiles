@@ -33,6 +33,12 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(use-package rjsx-mode
+  :ensure t
+  :config (progn
+  (add-to-list 'auto-mode-alist '("*.js" . rjsx-mode)))
+)
+
 (use-package all-the-icons
   :defer 1
   :config (progn
@@ -40,6 +46,14 @@
       (all-the-icons-install-fonts t))
   )
 )
+
+(use-package dizzee
+  :ensure t
+)
+
+(dz-defservice arrest-api "rails"
+                        :args ("server" "-p" "3001")
+                        :cd "/Users/patrick/github/arrest-api")
 
 (use-package neotree
   :ensure t
@@ -873,3 +887,15 @@
   ("m" describe-mode "describe mode"))
 
 (global-set-key (kbd "C-SPC ?") 'hydra-help/body)
+
+
+(defhydra hydra-js-modes (:exit t)
+  "
+    Describe things
+    _r_ rjsx mode
+    _j_ js2 mode
+  "
+  ("r" rjsx-mode)
+  ("j" js2-mode))
+
+(global-set-key (kbd "C-SPC m") 'hydra-js-modes/body)
