@@ -1,4 +1,4 @@
-;debug use-package 👇
+debug use-package 👇
 ;(setq use-package-verbose t)
 
 ;turn off toolbar
@@ -28,16 +28,11 @@
 
 (global-set-key (kbd "C-SPC") nil)
 
-;; Bootstrap `use-package'
+;; Bootstrap `use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
-(use-package rjsx-mode
-  :ensure t
-  :config (progn
-  (add-to-list 'auto-mode-alist '("*.js" . rjsx-mode)))
-)
 
 (use-package all-the-icons
   :defer 1
@@ -48,12 +43,13 @@
 )
 
 (use-package dizzee
-  :ensure t
+  :ensure nil
+  :load-path "~/dotfiles/emacs/dizzee"
+  :config (progn
+    (defvar dz-projects "~/dotfiles/emacs/dz-projects.el")
+    (unless (file-exists-p dz-projects)
+    (load-file dz-projects)))
 )
-
-(dz-defservice arrest-api "rails"
-                        :args ("server" "-p" "3001")
-                        :cd "/Users/patrick/github/arrest-api")
 
 (use-package neotree
   :ensure t
@@ -408,27 +404,13 @@
   :interpreter (
     ("node" . js2-mode)
   )
-  :mode (
-    ("\\.js?\\'" . js2-mode)
-    ("\\.jsx?\\'" . js2-mode)
-  )
-  :config (progn
-    ;; (add-hook 'js2-mode-hook 'relative-line-numbers-mode)
-    (setq js2-basic-offset 2)
-    (setq js2-highlight-level 3)
-    (setq js2-bounce-indent-p t)
-    (electric-indent-mode -1)
-    (setq js2-mode-show-strict-warnings nil)
-    (add-hook 'js2-mode-hook '(lambda() (setq show-trailing-whitespace t)))
-    (global-set-key (kbd "C-SPC k j") 'js2-mode-hide-warnings-and-errors)
-    (defcustom js2-strict-missing-semi-warning nil
-      "Non-nil to warn about semicolon auto-insertion after statement.
-    Technically this is legal per Ecma-262, but some style guides disallow
-    depending on it."
-      :type 'boolean
-      :group 'js2-mode)
-  )
 )
+
+ (use-package rjsx-mode
+   :ensure t
+   :config (progn
+   (add-to-list 'auto-mode-alist '("\\.js\\" . rjsx-mode)))
+ )
 
 ;indents! so brutal, each mode can have their own, e.g. css
 ;spaces
@@ -868,7 +850,7 @@
   (interactive)
   (find-file "~/dotfiles/emacs/.emacs"))
 
-(defun reload-my-config() 
+(defun reload-my-config()
  "reload config"
  (interactive)
  (load-file "~/dotfiles/emacs/.emacs"))
