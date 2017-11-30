@@ -1,4 +1,4 @@
-debug use-package 👇
+;debug use-package 👇
 ;(setq use-package-verbose t)
 
 ;turn off toolbar
@@ -33,6 +33,9 @@ debug use-package 👇
   (package-refresh-contents)
   (package-install 'use-package))
 
+(use-package json-mode
+  :ensure t
+  :mode ("\\.json?\\'" . json-mode)
 
 (use-package all-the-icons
   :defer 1
