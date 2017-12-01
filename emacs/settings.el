@@ -1,8 +1,13 @@
-;debug use-package 👇
-;(setq use-package-verbose t)
+;; Bootstrap `use-package
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 ;turn off toolbar
-(tool-bar-mode -1)
+(menu-bar-mode -1)
+
+(eval-when-compile
+  (require 'use-package))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -11,8 +16,13 @@
    )
 )
 
-(setq visible-bell nil)
+;; This is for debugging use-package.
+;;(setq use-package-verbose t)
+
 (show-paren-mode)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(setq visible-bell nil)
 
 (require 'key-chord)
 (key-chord-mode 1)
@@ -23,18 +33,9 @@
     (run-with-timer 0.1 nil 'invert-face 'mode-line)
 ))
 
-;no scrollbars, what is this a GUI?!
-(scroll-bar-mode -1)
-
 (global-set-key (kbd "C-SPC") nil)
 
-;; Bootstrap `use-package
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
 (use-package json-mode
-  :ensure t
   :mode ("\\.json?\\'" . json-mode))
 
 (use-package all-the-icons
@@ -45,9 +46,18 @@
   )
 )
 
+(use-package prettier-js
+  :ensure t
+
+  :config (progn
+  (add-hook 'rjsx-mode-hook 'prettier-js-mode)
+  (add-hook 'js2-mode-hook 'prettier-js-mode)
+  (add-hook 'web-mode-hook 'prettier-js-mode))
+)
+
 (use-package dizzee
   :ensure nil
-  :load-path "~/dotfiles/emacs/dizzee"
+  :load-path "~/dotfiles/emacs/dizzee/"
   :config (progn
     (defvar dz-projects "~/dotfiles/emacs/dz-projects.el")
     (unless (file-exists-p dz-projects)
@@ -409,17 +419,17 @@
   )
 )
 
- (use-package rjsx-mode
+(use-package rjsx-mode
    :ensure t
-   :config (progn
-   (add-to-list 'auto-mode-alist '("\\.js\\" . rjsx-mode)))
- )
+    :mode ("\\.js?\\'" . rjsx-mode))
 
 ;indents! so brutal, each mode can have their own, e.g. css
 ;spaces
 (setq-default indent-tabs-mode nil)
+
 ;2 of em
 (setq-default tab-width 2)
+
 ;yes, css, even you
 (setq-default css-indent-offset 2)
 
@@ -581,18 +591,6 @@
 (use-package fill-column-indicator
   :ensure t
   :config (setq fci-rule-column 80)
-)
-
-(use-package relative-line-numbers
-  :ensure t
-  :diminish ""
-  :bind ("C-SPC l" . relative-line-numbers-mode)
-  :config (progn
-    (add-hook 'css-mode-hook 'relative-line-numbers-mode)
-    (add-hook 'web-mode-hook 'relative-line-numbers-mode)
-    (add-hook 'emacs-lisp-mode-hook 'relative-line-numbers-mode)
-    (set-face-foreground 'relative-line-numbers-current-line "#d08770")
-  )
 )
 
 (use-package avy
