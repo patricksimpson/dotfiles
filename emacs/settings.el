@@ -57,11 +57,20 @@
 
 (use-package dizzee
   :ensure nil
-  :load-path "~/dotfiles/emacs/dizzee/"
+  :load-path "~/dotfiles/emacs/dizzee"
   :config (progn
     (defvar dz-projects "~/dotfiles/emacs/dz-projects.el")
-    (unless (file-exists-p dz-projects)
+    (if (file-exists-p dz-projects)
     (load-file dz-projects)))
+)
+
+(progn
+  (defvar dz-projects "~/dotfiles/emacs/dz-projects.el")
+  (if (file-exists-p dz-projects)
+      (progn (message "*Found DZ Projects*")
+      (load-file dz-projects))
+    (ding)
+    (message "dz projects file not found!"))
 )
 
 (use-package neotree
