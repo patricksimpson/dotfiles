@@ -35,7 +35,7 @@
 
 (use-package json-mode
   :ensure t
-  :mode ("\\.json?\\'" . json-mode)
+  :mode ("\\.json?\\'" . json-mode))
 
 (use-package all-the-icons
   :defer 1
