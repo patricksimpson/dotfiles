@@ -164,7 +164,7 @@
   :init (add-hook 'after-init-hook #'global-flycheck-mode)
   :bind ("C-SPC '" . flycheck-mode)
   :config (progn
-           (setq-default flycheck-disabled-checkers (list 'javascript-jshint 'emacs-lisp-checkdoc 'emacs-lisp 'json-jsonlist)))
+           (setq-default flycheck-disabled-checkers (list 'javascript-eslint 'emacs-lisp-checkdoc 'emacs-lisp 'json-jsonlist)))
 )
 
 (use-package tide
@@ -425,6 +425,22 @@
   :diminish "JS"
   :interpreter (
     ("node" . js2-mode)
+    )
+    :config (progn
+    ;; (add-hook 'js2-mode-hook 'relative-line-numbers-mode)
+    (setq js2-basic-offset 2)
+    (setq js2-highlight-level 3)
+    (setq js2-bounce-indent-p t)
+    (electric-indent-mode -1)
+    (setq js2-mode-show-strict-warnings nil)
+    (add-hook 'js2-mode-hook '(lambda() (setq show-trailing-whitespace t)))
+    (global-set-key (kbd "C-SPC k j") 'js2-mode-hide-warnings-and-errors)
+    (defcustom js2-strict-missing-semi-warning nil
+      "Non-nil to warn about semicolon auto-insertion after statement.
+    Technically this is legal per Ecma-262, but some style guides disallow
+    depending on it."
+      :type 'boolean
+      :group 'js2-mode)
   )
 )
 
