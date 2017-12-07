@@ -100,7 +100,6 @@
     )
   )
 
-;;(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 (setq neo-theme 'icons)
 
 (use-package diminish
@@ -114,6 +113,7 @@
   )
 )
 
+;; Awesome, deleting things goes to osx trash instead of `/dev/null`
 (use-package osx-trash
   :if (eq system-type 'darwin)
   :ensure t
@@ -123,6 +123,7 @@
   )
 )
 
+;; My fav <3
 (use-package base16-theme
   :ensure t
   :init (load-theme 'base16-twilight t)
@@ -446,7 +447,11 @@
 
 (use-package rjsx-mode
    :ensure t
-    :mode ("\\.js?\\'" . rjsx-mode))
+   :mode ("\\.js?\\'" . rjsx-mode)
+   :config (progn(
+            (setq indent-tabs-mode nil) ;;Use spaces
+            (setq js-indent-level 2) ;;space width is 2
+                  )))
 
 ;indents! so brutal, each mode can have their own, e.g. css
 ;spaces
@@ -518,7 +523,7 @@
       ;16 characters = /Users/patrick
       (if (stringp (buffer-file-name))
         (eval (concat " ▼ ../" (substring (buffer-file-name) 16 nil)))
-      "¯\\_(ツ)_/¯"
+      ":: empty ::"
       )
   ))
 )
