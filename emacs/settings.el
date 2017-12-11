@@ -1,4 +1,4 @@
-;; Bootstrap `use-package
+; Bootstrap `use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -160,13 +160,14 @@
 )
 
 (use-package flycheck
-  :ensure t
   :diminish "lint"
+  :defer 1
   :init (add-hook 'after-init-hook #'global-flycheck-mode)
   :bind ("C-SPC '" . flycheck-mode)
   :config (progn
-           (setq-default flycheck-disabled-checkers (list 'javascript-eslint 'emacs-lisp-checkdoc 'emacs-lisp 'json-jsonlist)))
-)
+            (setq flycheck-global-modes '(rjsx-mode emacs-lisp-mode json-mode))
+            ;;https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
+            (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))))
 
 (use-package tide
   :after flycheck
@@ -446,12 +447,17 @@
 )
 
 (use-package rjsx-mode
-   :ensure t
-   :mode ("\\.js?\\'" . rjsx-mode)
-   :config (progn(
-            (setq indent-tabs-mode nil) ;;Use spaces
-            (setq js-indent-level 2) ;;space width is 2
-                  )))
+  :interpreter (("node" . rjsx-mode))
+  :mode (("\\.js?\\'" . rjsx-mode)
+         ("\\.jsx?\\'" . rjsx-mode))
+  :config (progn
+            (setq js2-basic-offset 2)
+            (setq js2-highlight-level 3)
+            (setq js2-bounce-indent-p t)
+            (electric-indent-mode -1)
+            (setq js2-mode-show-strict-warnings nil)
+            (add-hook 'js2-mode-hook (lambda() (setq show-trailing-whitespace t)))
+            (add-hook 'rjsx-mode-hook (lambda() (setq mode-name "jsx")))))
 
 ;indents! so brutal, each mode can have their own, e.g. css
 ;spaces
