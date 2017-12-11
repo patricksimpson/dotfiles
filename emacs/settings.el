@@ -647,6 +647,7 @@
   :bind ("C-SPC e" . yas-expand)
   :load-path "~/.emacs.d/elpa/yasnippet"
   :init (progn
+    (add-hook 'rjsx-mode-hook #'yas-minor-mode)
     (add-hook 'js2-mode-hook #'yas-minor-mode)
     (add-hook 'org-mode-hook #'yas-minor-mode)
   )
@@ -680,6 +681,7 @@
     (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
     (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
     ;JSX gets className not class
+    (add-hook 'rjsx-mode-hook 'jsxEmmet)
     (add-hook 'js2-mode-hook 'jsxEmmet)
     (add-hook 'handlebars-mode-hook 'jsEmmet)
   )
@@ -795,6 +797,7 @@
 ;; formats the buffer before saving
 (add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
+(add-hook 'rjsx-mode-hook #'setup-tide-mode)
 (add-hook 'js2-mode-hook #'setup-tide-mode)
 
 (use-package ivy
