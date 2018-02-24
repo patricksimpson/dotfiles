@@ -1,4 +1,15 @@
-; Bootstrap `use-package
+;;; package --- Summary
+;;;
+;;; Containing all the settings.
+;;;
+;;; Commentary:
+;;;
+;;; This file is adapted from adam simpson by
+;;; patrick simspon (no relation).
+;;;
+;;; Code:
+
+;; Bootstrap `use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -47,13 +58,15 @@
 )
 
 (use-package prettier-js
-  :ensure t
-
-  :config (progn
-  (add-hook 'rjsx-mode-hook 'prettier-js-mode)
-  (add-hook 'js2-mode-hook 'prettier-js-mode)
-  (add-hook 'web-mode-hook 'prettier-js-mode))
-)
+  :diminish "pretty"
+  :defer 1
+  :init (progn
+          (add-hook 'js2-mode-hook 'prettier-js-mode)
+          (add-hook 'tide-mode-hook 'prettier-js-mode)
+          (add-hook 'rjsx-mode-hook 'prettier-js-mode))
+  :config (setq prettier-js-args '(
+                                   "--bracket-spacing" "true"
+                                   "--single-quote" "true")))
 
 (use-package dizzee
   :ensure nil
@@ -772,7 +785,7 @@
 (setq company-tooltip-align-annotations t)
 
 ;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
+;; (add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 (add-hook 'rjsx-mode-hook #'setup-tide-mode)
 (add-hook 'js2-mode-hook #'setup-tide-mode)
@@ -789,7 +802,7 @@
   :ensure t
   :defer 1
   :config (progn
-            (global-set-key (kbd "C-SPC x") 'hydra-js2/body)
+            (global-set-key (kbd "C-SPC o") 'hydra-js2/body)
             (global-set-key (kbd "C-SPC z") 'ivy-window-configuration--hydra/body)
             (global-set-key (kbd "C-SPC v") 'hydra-vimish/body)
             (global-set-key (kbd "C-SPC t") 'hydra-tide/body)
@@ -845,6 +858,31 @@
   ("b" eval-buffer))
 
 (global-set-key (kbd "C-SPC s") 'hydra-emacs-settings/body)
+
+
+(defhydra hydra-origami (:exit t)
+  "
+    Describe things
+    _o_ open node
+    _c_ close node
+    _s_ show only node
+    _n_ next origami
+    _p_ previou origami
+    _u_ undo origami
+    _r_ redo origami
+    _x_ REMOVE ALL FOLDS
+  "
+  ("o" origami-open-node)
+  ("c" origami-close-node)
+  ("s" origami-show-only-node)
+  ("n" origami-next-fold)
+  ("p" origami-previous-fold)
+  ("u" origami-undo)
+  ("r" origami-redo)
+  ("x" origami-reset)
+)
+
+(global-set-key (kbd "C-SPC x") 'hydra-origami/body)
 
 (defun open-my-keybinds-file()
  "Open the keybinds file."
