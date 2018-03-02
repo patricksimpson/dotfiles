@@ -101,7 +101,7 @@ export GPG_AGENT_INFO  # the env file does not contain the export statement
 export GPG_AGENT=/usr/local/bin/gpg-agent
 export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
 export PATH="$HOME/.npm-packages/bin:$PATH"
-
+export PATH="node_modules/.bin:$PATH"
 source /Users/patrick/.rvm/scripts/rvm
 
 source ~/.rvm/scripts/rvm
