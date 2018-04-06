@@ -105,3 +105,17 @@ export PATH="node_modules/.bin:$PATH"
 source /Users/patrick/.rvm/scripts/rvm
 
 source ~/.rvm/scripts/rvm
+
+function devurl() {
+  branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+  folder=${PWD##*/}
+  if [[ $folder == *-ui ]]; then
+      folder=${folder:0:-3}
+  fi
+  url=https://my.zone1.development.crown.com/$folder/$branch/
+  echo The development url for this branch and repository is:
+  echo $url
+  echo
+  echo $url | pbcopy
+  echo It has been copied to your clipboard and ready for pasting!
+}
