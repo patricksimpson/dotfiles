@@ -22,7 +22,7 @@
 
 (org-babel-do-load-languages
  'org-babel-load-languages
-  '( (sh . t)
+  '( (shell . t)
      (js . t)
    )
 )
@@ -69,8 +69,7 @@
                                    "--single-quote" "true")))
 
 (use-package dizzee
-  :ensure nil
-  :load-path "~/dotfiles/emacs/dizzee"
+  :ensure t
   :config (progn
     (defvar dz-projects "~/dotfiles/emacs/dz-projects.el")
     (if (file-exists-p dz-projects)
@@ -377,14 +376,21 @@
     (setq org-todo-keywords
           '((sequence "TODO" "IN-PROGRESS" "WAITING" "|" "DONE" "CANCELED")))
 
-    ;capture template http://blog.aaronbieber.com/2016/01/30/dig-into-org-mode.html
+    ;capture template [[http://blog.aaronbieber.com/2016/01/30/dig-into-org-mode.html][org caputre]]
     (setq org-capture-templates
-          '(("a" "My TODO task format." entry
+          '(("a" "General Tasks" entry
             (file "~/Dropbox (Personal)/org/tasks.org")
             "* TODO %? %^g
-    :PROPERTIES:
     :CREATED: %T
-    :END:")))
+    :END:")
+          ("h" "Home Tasks" entry
+            (file "~/Dropbox (Personal)/org/home.org")
+            "* TODO %? %^g")
+          ("w" "Work Tasks" entry
+            (file "~/Dropbox (Personal)/org/work.org")
+            "* TODO %? %^g")
+          ))
+    (setq org-refile-use-outline-path 'file)
     ;restore windows after org-todo-list closes
     (setq org-agenda-restore-windows-after-quit t)
     (add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
@@ -489,6 +495,7 @@
 ;modes w/ file extensions
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ejs?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 
@@ -630,7 +637,6 @@
 (use-package reveal-in-osx-finder
   :ensure t
 )
-
 (use-package yasnippet
   :ensure t
   :diminish yas-minor-mode
@@ -647,6 +653,7 @@
     (define-key yas-minor-mode-map (kbd "TAB") nil)
   )
 )
+(yas-global-mode 1)
 
 (use-package deft
   :ensure t
@@ -805,7 +812,7 @@
             (global-set-key (kbd "C-SPC o") 'hydra-js2/body)
             (global-set-key (kbd "C-SPC z") 'ivy-window-configuration--hydra/body)
             (global-set-key (kbd "C-SPC v") 'hydra-vimish/body)
-            (global-set-key (kbd "C-SPC t") 'hydra-tide/body)
+            (evil-leader/set-key "s" 'hydra-emacs-settings/body)
             ))
 
 
@@ -855,7 +862,8 @@
   ("k" open-my-keybinds-file)
   ("e" open-my-init-file)
   ("r" reload-my-config)
-  ("b" eval-buffer))
+  ("b" eval-buffer)
+)
 
 (global-set-key (kbd "C-SPC s") 'hydra-emacs-settings/body)
 
@@ -930,3 +938,27 @@
   ("j" js2-mode))
 
 (global-set-key (kbd "C-SPC m") 'hydra-js-modes/body)
+
+
+(custom-set-faces
+ '(ediff-current-diff-A ((t (:foreground "Red" :background "Black"))))
+ '(ediff-current-diff-B ((t (:foreground "Green" :background "Black"))))
+ '(ediff-current-diff-C ((t (:foreground "Yellow" :background "Black"))))
+ '(ediff-even-diff-C ((t (:foreground "Yellow" :background "Black"))))
+ '(ediff-odd-diff-C ((t (:foreground "Yellow" :background "Black"))))
+ '(ediff-fine-diff-C ((t (:foreground "Yellow" :background "Black"))))
+ )
+
+(server-start)
+
+(use-package osx-clipboard
+  :ensure t
+  :defer 1
+  :if (eq system-type 'darwin)
+  :diminish "clip"
+  :config (osx-clipboard-mode))
+
+;; (key-chord-define-global (kbd "SPC SPC") 'counsel-M-x)
+
+(setq epa-pinentry-mode 'loopback)
+(pinentry-start)

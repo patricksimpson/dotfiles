@@ -41,7 +41,7 @@ COMPLETION_WAITING_DOTS="true"
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Uncomment following line if you want to  shown in the command execution time stamp 
+# Uncomment following line if you want to  shown in the command execution time stamp
 # in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|
 # yyyy-mm-dd
 HIST_STAMPS="mm/dd/yyyy"
@@ -55,7 +55,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/usr/local/share/python:/Users/patrick/bin:/usr/local/bin:/usr/local/mysql/bin:/Users/patrick/.rvm/gems/ruby-2.0.0-p247/bin:/Users/patrick/.rvm/gems/ruby-2.0.0-p247@global/bin:/Users/patrick/.rvm/rubies/ruby-2.0.0-p247/bin:/Users/patrick/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
+export PATH="/usr/local/share/python:/Users/patrick/bin:/usr/local/bin:/usr/local/mysql/bin:/Users/patrick/.rvm/gems/ruby-2.0.0-p247/bin:/Users/patrick/.rvm/gems/ruby-2.0.0-p247@global/bin:/Users/patrick/.rvm/rubies/ruby-2.0.0-p247/bin:/Users/patrick/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/patrick/sh"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Preferred editor for local and remote sessions
@@ -92,19 +92,24 @@ autoload -Uz compinit && compinit
 
 envfile="${HOME}/.gpg-agent-info"
 
-if test -f "$envfile" && kill -0 $(grep GPG_AGENT_INFO "$envfile" | cut -d: -f 2) 2>/dev/null; then
-    eval "$(cat "$envfile")"
-else
-    eval "$(gpg-agent --daemon --log-file=~/.gpg/gpg.log)"
-fi
+export GPG_TTY=$(tty)
+
 export GPG_AGENT_INFO  # the env file does not contain the export statement
 export GPG_AGENT=/usr/local/bin/gpg-agent
+
 export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
 export PATH="$HOME/.npm-packages/bin:$PATH"
 export PATH="node_modules/.bin:$PATH"
 source /Users/patrick/.rvm/scripts/rvm
 
 source ~/.rvm/scripts/rvm
+
+function devauth() {
+  pwd=$(pwd)
+  cd /Users/patrick/github/crown/ui-dev
+  npm run auth
+  cd $pwd
+}
 
 function devurl() {
   branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
@@ -119,3 +124,5 @@ function devurl() {
   echo $url | pbcopy
   echo It has been copied to your clipboard and ready for pasting!
 }
+
+export PATH="$HOME/.bin:$PATH"

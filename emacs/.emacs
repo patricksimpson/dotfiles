@@ -40,10 +40,15 @@
  '(helm-ag-base-command "ag --nocolor --nogroup")
  '(package-selected-packages
    (quote
-    (origami prettier-js json-mode dizzee prodigy ivy tide php-mode sauron web-mode handlebars-mode all-the-icons-dired doom-themes all-the-icons neotree visual-fill-column evil-magit editorconfig yasnippet which-key vimish-fold use-package reveal-in-osx-finder relative-line-numbers osx-trash multi-term markdown-mode magit key-chord js2-mode helm-projectile helm-flyspell helm-ag flycheck fill-column-indicator exec-path-from-shell evil-matchit evil-leader escreen emmet-mode dired-subtree dired-narrow diff-hl deft base16-theme avy auto-complete alert))))
+    (yasnippet-classic-snippets dizzee osx-clipboard origami prettier-js json-mode prodigy ivy tide php-mode sauron web-mode handlebars-mode all-the-icons-dired doom-themes all-the-icons neotree visual-fill-column evil-magit editorconfig yasnippet which-key vimish-fold use-package reveal-in-osx-finder relative-line-numbers osx-trash multi-term markdown-mode magit key-chord js2-mode helm-projectile helm-flyspell helm-ag flycheck fill-column-indicator exec-path-from-shell evil-matchit evil-leader escreen emmet-mode dired-subtree dired-narrow diff-hl deft base16-theme avy auto-complete alert))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(ediff-current-diff-A ((t (:foreground "Red" :background "Black"))))
+ '(ediff-current-diff-B ((t (:foreground "Green" :background "Black"))))
+ '(ediff-current-diff-C ((t (:foreground "Yellow" :background "Black"))))
+ '(ediff-even-diff-C ((t (:foreground "Yellow" :background "Black"))))
+ '(ediff-fine-diff-C ((t (:foreground "Yellow" :background "Black"))))
+ '(ediff-odd-diff-C ((t (:foreground "Yellow" :background "Black")))))
