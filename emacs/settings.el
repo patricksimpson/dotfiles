@@ -947,8 +947,3 @@
   :if (eq system-type 'darwin)
   :diminish "clip"
   :config (osx-clipboard-mode))
-
-;; (key-chord-define-global (kbd "SPC SPC") 'counsel-M-x)
-
-;(setq epa-pinentry-mode 'loopback)
-;(pinentry-start)
