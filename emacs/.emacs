@@ -26,9 +26,6 @@
 ;prevent new frame
 ;(defun switch-to-buffer-other-frame ())
 
-(load "~/.emacs.d/settings.el")
-(load "~/.emacs.d/keybinds.el")
-
 ;https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html
 ;set local variable per project :point_up:
 (put 'narrow-to-region 'disabled nil)
@@ -40,7 +37,11 @@
  '(helm-ag-base-command "ag --nocolor --nogroup")
  '(package-selected-packages
    (quote
-    (yasnippet-classic-snippets dizzee osx-clipboard origami prettier-js json-mode prodigy ivy tide php-mode sauron web-mode handlebars-mode all-the-icons-dired doom-themes all-the-icons neotree visual-fill-column evil-magit editorconfig yasnippet which-key vimish-fold use-package reveal-in-osx-finder relative-line-numbers osx-trash multi-term markdown-mode magit key-chord js2-mode helm-projectile helm-flyspell helm-ag flycheck fill-column-indicator exec-path-from-shell evil-matchit evil-leader escreen emmet-mode dired-subtree dired-narrow diff-hl deft base16-theme avy auto-complete alert))))
+    (yasnippet-classic-snippets dizzee osx-clipboard origami prettier-js json-mode prodigy ivy tide php-mode sauron web-mode handlebars-mode all-the-icons-dired doom-themes all-the-icons neotree visual-fill-column evil-magit editorconfig yasnippet which-key vimish-fold use-package reveal-in-osx-finder relative-line-numbers osx-trash multi-term markdown-mode magit key-chord js2-mode helm-projectile helm-flyspell helm-ag flycheck fill-column-indicator exec-path-from-shell evil-matchit evil-leader emmet-mode dired-subtree dired-narrow diff-hl deft base16-theme avy auto-complete alert))))
+
+(load "~/.emacs.d/settings.el")
+(load "~/.emacs.d/keybinds.el")
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

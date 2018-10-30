@@ -422,16 +422,6 @@
   )
 )
 
-(use-package escreen
-  :ensure t
-  :demand t
-  :bind ("C-SPC S" . escreen-menu)
-  :config (progn
-    (setq escreen-prefix-char (kbd "C-SPC s"))
-    (global-set-key escreen-prefix-char 'escreen-prefix)
-  )
-)
-
 (use-package multi-term
   :ensure t
   :config (progn
@@ -656,12 +646,12 @@
 (yas-global-mode 1)
 
 (use-package deft
-  :ensure t
+  :ensure f
   :bind ("C-SPC d" . deft)
   :config (progn
     (add-to-list 'evil-emacs-state-modes 'deft-mode)
     (setq deft-extensions '("txt" "tex" "org"))
-    (setq deft-directory "/Users/patrick/Dropbox (Sparkbox)/Notes")
+    (setq deft-directory "/Users/patrick/notes")
     (setq deft-use-filename-as-title t)
     (setq deft-auto-save-interval 60.0)
   )
@@ -802,8 +792,8 @@
 
 (use-package ivy-window-configuration
   :ensure nil
-  :if (file-exists-p "/Users/patrick/dotfiles/emacs/ivy-window-configuration/")
-  :load-path "/Users/patrick/dotfiles/emacs/ivy-window-configuration/")
+  :if (file-exists-p "~/patrick/dotfiles/emacs/ivy-window-configuration/")
+  :load-path "~/patrick/dotfiles/emacs/ivy-window-configuration/")
 
 (use-package hydra
   :ensure t
@@ -960,5 +950,5 @@
 
 ;; (key-chord-define-global (kbd "SPC SPC") 'counsel-M-x)
 
-(setq epa-pinentry-mode 'loopback)
-(pinentry-start)
+;(setq epa-pinentry-mode 'loopback)
+;(pinentry-start)
