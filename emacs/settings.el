@@ -296,7 +296,7 @@
 
 (defun simpson-projects-browser()
   (interactive)
-  (cd "~/github/")
+  (cd "~/projects/")
   (helm-find-files nil)
   (neotree-refresh)
 )

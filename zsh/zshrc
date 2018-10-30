@@ -76,7 +76,7 @@ source $HOME/dotfiles/bash/aliases
 
 export TERM=xterm-256color
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 # export PATH="$(brew --prefix homebrew/php/php53)/bin:$PATH"
 export CONTENTFUL_API_KEY=fee5514f378e237238beb8005413cf55d00f7200e3b2caeb4d44723b123d354b
 export PATH="$PATH:$HOME/.composer/vendor/bin/" # Add composer vendor to PATH
@@ -100,9 +100,9 @@ export GPG_AGENT=/usr/local/bin/gpg-agent
 export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
 export PATH="$HOME/.npm-packages/bin:$PATH"
 export PATH="node_modules/.bin:$PATH"
-source /Users/patrick/.rvm/scripts/rvm
+#source /Users/patrick/.rvm/scripts/rvm
 
-source ~/.rvm/scripts/rvm
+#source ~/.rvm/scripts/rvm
 
 function devauth() {
   pwd=$(pwd)
