@@ -4,7 +4,7 @@
 
 ## Shell Conf
 
-Source `~/.dotfiles/bash/functions` and `~/.dotfiles/bash/aliases` in one of these: 
+Source `~/.dotfiles/bash/functions` and `~/.dotfiles/bash/aliases` in one of these:
 
   - `.bash_profile`
   - `.bashrc`
@@ -15,7 +15,6 @@ Source `~/.dotfiles/bash/functions` and `~/.dotfiles/bash/aliases` in one of the
 
 ## Emacs Conf
   - `ln -s ~/.dotfiles/emacs/.emacs ~/.emacs`
-  - `ln -s ~/.dotfiles/emacs ~/.emacs.d`
   - `ln -s ~/.dotfiles/emacs ~/.emacs.d`
 
 ## Vim Conf
