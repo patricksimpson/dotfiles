@@ -457,7 +457,7 @@
 
 (use-package rjsx-mode
   :interpreter (("node" . rjsx-mode))
-  :mode (("\\.js?\\'" . rjsx-mode)
+  :mode (("\\.js\\'" . js2-mode)
          ("\\.jsx?\\'" . rjsx-mode))
   :config (progn
             (setq js2-basic-offset 2)
@@ -488,6 +488,8 @@
 (add-to-list 'auto-mode-alist '("\\.ejs?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
+(add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
 
 ;each line gets one line
 (set-default 'truncate-lines t)
@@ -578,6 +580,12 @@
   mode-line-modes
   mode-line-misc-info
 ))
+
+(column-number-mode)
+(use-package git-ps1-mode
+  :config (setq git-ps1-mode-lighter-text-format " [%s]"))
+
+(git-ps1-mode)
 
 ;colors are set for ocean dark
 (set-face-attribute 'mode-line nil
@@ -940,6 +948,8 @@
  )
 
 (server-start)
+(require 'powerline)
+(setq powerline-arrow-shape 'arrow)   ;; the default
 
 (use-package osx-clipboard
   :ensure t
@@ -947,3 +957,10 @@
   :if (eq system-type 'darwin)
   :diminish "clip"
   :config (osx-clipboard-mode))
+
+(defun patrick-currentfile (&optional count)
+ (when (string-equal (buffer-name) " *NeoTree*")
+    (message "%s" (neo-path--file-short-name (neo-buffer--get-filename-current-line)))))
+
+(advice-add 'evil-previous-line :after #'patrick-currentfile)
+(advice-add 'evil-next-line :after #'patrick-currentfile)
