@@ -381,15 +381,15 @@
     ;capture template [[http://blog.aaronbieber.com/2016/01/30/dig-into-org-mode.html][org caputre]]
     (setq org-capture-templates
           '(("a" "General Tasks" entry
-            (file (concat org-path "/tasks.org"))
+            (file (concat org-path "/tasks.txt"))
             "* TODO %? %^g
     :CREATED: %T
     :END:")
           ("h" "Home Tasks" entry
-            (file (concat org-path "/home.org"))
+            (file (concat org-path "/home.txt"))
             "* TODO %? %^g")
           ("w" "Work Tasks" entry
-            (file (concat org-path "/work.org")
+            (file (concat org-path "/work.txt"))
             "* TODO %? %^g")
           ))
     (setq org-refile-use-outline-path 'file)
@@ -495,6 +495,7 @@
 (require 'yaml-mode)
 (require 'web-mode)
 
+
 ;modes w/ file extensions
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
@@ -502,6 +503,14 @@
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
 
 ;each line gets one line
 (set-default 'truncate-lines t)
