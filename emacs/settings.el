@@ -105,10 +105,7 @@
       (define-key evil-normal-state-local-map (kbd "s") 'neotree-enter-vertical-split)
       (define-key evil-normal-state-local-map (kbd "S") 'neotree-enter-horizontal-split)
 
-      (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
-      )
-    )
-  )
+      (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter))))
 
 (setq neo-theme 'icons)
 
@@ -119,9 +116,7 @@
     (diminish 'web-mode "")
     (diminish 'auto-revert "")
     (diminish 'smerge-mode "")
-    (diminish 'flyspell-mode "spell")
-  )
-)
+    (diminish 'flyspell-mode "spell")))
 
 ;; Awesome, deleting things goes to osx trash instead of `/dev/null`
 (use-package osx-trash
@@ -129,15 +124,11 @@
   :ensure t
   :config (progn
     (osx-trash-setup)
-    (setq delete-by-moving-to-trash t)
-  )
-)
+    (setq delete-by-moving-to-trash t)))
 
-;; My fav <3
 (use-package base16-theme
   :ensure t
-  :init (load-theme 'base16-twilight t)
-)
+  :init (load-theme 'base16-twilight t))
 
 (use-package exec-path-from-shell
   :ensure t
@@ -145,16 +136,13 @@
     ;(setq exec-path-from-shell-arguments "-l");remove -i
     ;causes error in shell
     (when (memq window-system '(mac ns))
-      (exec-path-from-shell-initialize))
-  )
-)
+      (exec-path-from-shell-initialize))))
 
 (use-package dired-narrow
   :ensure t
   :demand
   :bind (:map dired-mode-map
-              ("/" . dired-narrow-fuzzy))
-)
+              ("/" . dired-narrow-fuzzy)))
 
 (use-package dired-subtree
   :ensure t
@@ -166,8 +154,7 @@
   :ensure t
   :config (vimish-fold-global-mode 1)
   :bind (("C-SPC v" . vimish-fold)
-         ("C-SPC V" . vimish-fold-delete))
-)
+         ("C-SPC V" . vimish-fold-delete)))
 
 (use-package flycheck
   :diminish "lint"
@@ -183,8 +170,7 @@
   :after flycheck
   :defer 1
   :config (progn
-           (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
-            ))
+           (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)))
 
 (use-package evil
   :ensure t
@@ -195,10 +181,7 @@
       :ensure t
       :config (progn
         (global-evil-leader-mode)
-        (evil-leader/set-leader ",")
-      )
-    )
-  )
+        (evil-leader/set-leader ","))))
   :config (progn
     (evil-mode 1)
     (add-to-list 'evil-emacs-state-modes 'dired-mode)
@@ -227,24 +210,17 @@
         (setq key-chord-two-keys-delay 0.1)
         (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
         (key-chord-define-global "//" 'comment-region)
-        (key-chord-define-global "??" 'uncomment-region)
-      )
-    )
-  )
-)
+        (key-chord-define-global "??" 'uncomment-region)))))
 
 (key-chord-mode 1)
 (setq key-chord-two-keys-delay 0.1)
-
 
 (use-package evil-matchit
   :ensure t
   :config (progn
     (global-evil-matchit-mode 1)
     (plist-put evilmi-plugins 'handlebars-mode '((evilmi-simple-get-tag evilmi-simple-jump)
-      (evilmi-html-get-tag evilmi-html-jump)))
-  )
-)
+      (evilmi-html-get-tag evilmi-html-jump)))))
 
 (use-package helm
   :ensure t
@@ -253,8 +229,7 @@
     ("M-x" . helm-M-x)
     ("C-=" . helm-mini)
     ("C-SPC f" . helm-find-files)
-    ("C-SPC k p" . simpson-projects-browser)
-  )
+    ("C-SPC k p" . simpson-projects-browser))
   :config (progn
     (helm-mode)
     (require 'helm-config)
@@ -274,34 +249,24 @@
         (use-package helm-projectile
           :ensure t
           :config (progn
-            (helm-projectile-on)
-          )
-        )
-      )
-    )
+            (helm-projectile-on)))))
     (use-package helm-ag
       :ensure t
       :defer t
       :config (progn
         (custom-set-variables
-        '(helm-ag-base-command "ag --nocolor --nogroup"))
-      )
-    )
-  )
-)
+        '(helm-ag-base-command "ag --nocolor --nogroup"))))))
 
 (use-package helm-flyspell
   :ensure t
   :diminish ""
-  :bind ("C-SPC C" . helm-flyspell-correct)
-)
+  :bind ("C-SPC C" . helm-flyspell-correct))
 
 (defun simpson-projects-browser()
   (interactive)
   (cd "~/projects/")
   (helm-find-files nil)
-  (neotree-refresh)
-)
+  (neotree-refresh))
 
 (use-package magit
   :ensure t
@@ -324,25 +289,19 @@
     (set-face-background 'magit-section-highlight "#343d46")
 
     (use-package evil-magit
-      :ensure t
-    )
-  )
-)
+      :ensure t)))
 
 (use-package diff-hl
   :ensure t
   :bind (
     ("C-SPC r" . diff-hl-revert-hunk)
     ("C-x p" . diff-hl-previous-hunk)
-    ("C-x n" . diff-hl-next-hunk)
-  )
+    ("C-x n" . diff-hl-next-hunk))
   :config (progn
     (global-diff-hl-mode)
     (set-face-background 'diff-hl-change "#96b5b4")
     (set-face-background 'diff-hl-insert "#a3be8c")
-    (set-face-background 'diff-hl-delete "#d08770")
-  )
-)
+    (set-face-background 'diff-hl-delete "#d08770")))
 
 (use-package auto-complete
   :ensure t
@@ -351,9 +310,7 @@
     (ac-config-default)
     ;this prevents the stupid behavior in scss where &:before {___ autocompletes
     ;lang!
-    (defconst ac-css-pseudo-classes nil)
-  )
-)
+    (defconst ac-css-pseudo-classes nil)))
 
 (use-package org
   :ensure t
@@ -361,11 +318,9 @@
     ("C-SPC c" . simpson-org-task-capture)
     ("C-SPC t" . org-todo-list)
     ("C-SPC a" . org-agenda)
-    ("C-SPC T" . org-tags-view)
-  )
+    ("C-SPC T" . org-tags-view))
   :mode (
-    ("\\.txt\\'" . org-mode)
-  )
+    ("\\.txt\\'" . org-mode))
   :config (progn
     ;org mode location
     (setq org-path "~/Dropbox/org")
@@ -420,25 +375,19 @@
       (interactive)
       (org-capture nil "a"))
     (global-set-key (kbd "C-SPC k f") 'org-footnote-new)
-    (global-set-key (kbd "C-SPC k l") 'org-toggle-link-display)
-  )
-)
+    (global-set-key (kbd "C-SPC k l") 'org-toggle-link-display)))
 
 (use-package multi-term
   :ensure t
   :config (progn
     (setq multi-term-program "/bin/zsh")
     (setq multi-term-program-switches "--login")
-    (define-key global-map (kbd "C-SPC p") 'term-paste)
-  )
-)
+    (define-key global-map (kbd "C-SPC p") 'term-paste)))
 
 (use-package js2-mode
   :ensure t
   :diminish "JS"
-  :interpreter (
-    ("node" . js2-mode)
-    )
+  :interpreter (("node" . js2-mode))
     :config (progn
     ;; (add-hook 'js2-mode-hook 'relative-line-numbers-mode)
     (setq js2-basic-offset 2)
@@ -453,9 +402,7 @@
     Technically this is legal per Ecma-262, but some style guides disallow
     depending on it."
       :type 'boolean
-      :group 'js2-mode)
-  )
-    )
+      :group 'js2-mode)))
 
 (use-package rjsx-mode
   :interpreter (("node" . rjsx-mode))
@@ -487,14 +434,14 @@
 
 (use-package yaml-mode
   :ensure t
-  )
+)
+
 (use-package web-mode
   :ensure t
 )
 
 (require 'yaml-mode)
 (require 'web-mode)
-
 
 ;modes w/ file extensions
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -563,9 +510,7 @@
       (if (stringp (buffer-file-name))
         (eval (concat " ▼ ../" (substring (buffer-file-name) 16 nil)))
       ":: empty ::"
-      )
-  ))
-)
+      ))))
 
 ;set the header intially
 (simpson-header)
@@ -832,11 +777,12 @@
             (global-set-key (kbd "C-SPC o") 'hydra-js2/body)
             (global-set-key (kbd "C-SPC z") 'ivy-window-configuration--hydra/body)
             (global-set-key (kbd "C-SPC v") 'hydra-vimish/body)
-            (evil-leader/set-key "s" 'hydra-emacs-settings/body)
-            ))
-
-
-
+            (global-set-key (kbd "C-SPC x") 'hydra-origami/body)
+            (global-set-key (kbd "C-SPC ?") 'hydra-help/body)
+            (global-set-key (kbd "C-SPC m") 'hydra-js-modes/body)
+            (evil-leader/set-key "e" 'hydra-command-line/body)
+            (global-set-key (kbd "C-SPC s") 'hydra-emacs-settings/body)
+            (evil-leader/set-key "s" 'hydra-emacs-settings/body)))
 
 (defhydra hydra-js2 ()
   "
@@ -885,11 +831,9 @@
   ("b" eval-buffer)
 )
 
-(global-set-key (kbd "C-SPC s") 'hydra-emacs-settings/body)
-
-
 (defhydra hydra-origami (:exit t)
   "
+    Folding
     _o_ open node
     _c_ close node
     _s_ show only node
@@ -908,8 +852,6 @@
   ("r" origami-redo)
   ("x" origami-reset)
 )
-
-(global-set-key (kbd "C-SPC x") 'hydra-origami/body)
 
 (defun open-my-keybinds-file()
  "Open the keybinds file."
@@ -933,6 +875,7 @@
 
 (defhydra hydra-help (:exit t)
   "
+    Emacs - Describe
     _v_ describe variables
     _f_ describe function
     _s_ describe symbol
@@ -943,20 +886,15 @@
   ("s" describe-symbol "describe symbol")
   ("m" describe-mode "describe mode"))
 
-(global-set-key (kbd "C-SPC ?") 'hydra-help/body)
-
 
 (defhydra hydra-js-modes (:exit t)
   "
-    Describe things
+    Switch Modes
     _r_ rjsx mode
     _j_ js2 mode
   "
   ("r" rjsx-mode)
   ("j" js2-mode))
-
-(global-set-key (kbd "C-SPC m") 'hydra-js-modes/body)
-
 
 (custom-set-faces
  '(ediff-current-diff-A ((t (:foreground "Red" :background "Black"))))
@@ -964,15 +902,13 @@
  '(ediff-current-diff-C ((t (:foreground "Yellow" :background "Black"))))
  '(ediff-even-diff-C ((t (:foreground "Yellow" :background "Black"))))
  '(ediff-odd-diff-C ((t (:foreground "Yellow" :background "Black"))))
- '(ediff-fine-diff-C ((t (:foreground "Yellow" :background "Black"))))
- )
+ '(ediff-fine-diff-C ((t (:foreground "Yellow" :background "Black")))))
 
 (server-start)
 
 (use-package powerline
   :ensure t
-  :config (setq powerline-arrow-shape 'arrow)   ;; the default
-)
+  :config (setq powerline-arrow-shape 'arrow))
 
 (use-package osx-clipboard
   :ensure t
@@ -1015,5 +951,3 @@
   "
   ("e" shell-command-on-region-or-line)
   ("x" external-shell-command-on-region-or-line))
-
-(evil-leader/set-key "e" 'hydra-command-line/body)
