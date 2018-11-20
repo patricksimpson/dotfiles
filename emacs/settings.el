@@ -35,10 +35,6 @@
 (scroll-bar-mode -1)
 (setq visible-bell nil)
 
-(require 'key-chord)
-(key-chord-mode 1)
-(setq key-chord-two-keys-delay 0.1)
-
 (setq ring-bell-function (lambda ()
     (invert-face 'mode-line)
     (run-with-timer 0.1 nil 'invert-face 'mode-line)
@@ -47,10 +43,12 @@
 (global-set-key (kbd "C-SPC") nil)
 
 (use-package json-mode
-  :mode ("\\.json?\\'" . json-mode))
+  :ensure t
+  :mode ("\\.json\\'" . json-mode))
 
 (use-package all-the-icons
   :defer 1
+  :ensure t
   :config (progn
     (unless (file-exists-p "~/Library/Fonts/all-the-icons.ttf")
       (all-the-icons-install-fonts t))
@@ -235,6 +233,10 @@
   )
 )
 
+(key-chord-mode 1)
+(setq key-chord-two-keys-delay 0.1)
+
+
 (use-package evil-matchit
   :ensure t
   :config (progn
@@ -366,8 +368,8 @@
   )
   :config (progn
     ;org mode location
-    ;look into swapping with txt, org-agenda-file-regexp
-    (setq org-agenda-files '("~/Dropbox (Personal)/org"))
+    (setq org-path "~/Dropbox/org")
+    (setq org-agenda-files '(org-path))
     ;log when done
     (setq org-log-done t)
     ;set deadline warning
@@ -379,15 +381,15 @@
     ;capture template [[http://blog.aaronbieber.com/2016/01/30/dig-into-org-mode.html][org caputre]]
     (setq org-capture-templates
           '(("a" "General Tasks" entry
-            (file "~/Dropbox (Personal)/org/tasks.org")
+            (file (concat org-path "/tasks.org"))
             "* TODO %? %^g
     :CREATED: %T
     :END:")
           ("h" "Home Tasks" entry
-            (file "~/Dropbox (Personal)/org/home.org")
+            (file (concat org-path "/home.org"))
             "* TODO %? %^g")
           ("w" "Work Tasks" entry
-            (file "~/Dropbox (Personal)/org/work.org")
+            (file (concat org-path "/work.org")
             "* TODO %? %^g")
           ))
     (setq org-refile-use-outline-path 'file)
@@ -453,7 +455,7 @@
       :type 'boolean
       :group 'js2-mode)
   )
-)
+    )
 
 (use-package rjsx-mode
   :interpreter (("node" . rjsx-mode))
@@ -482,13 +484,23 @@
 (set-face-attribute 'default nil :font "Monaco-12")
 (set-frame-font "Monaco-12" nil t)
 
+
+(use-package yaml-mode
+  :ensure t
+  )
+(use-package web-mode
+  :ensure t
+)
+
+(require 'yaml-mode)
+(require 'web-mode)
+
 ;modes w/ file extensions
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-
 (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
 
 ;each line gets one line
@@ -583,6 +595,7 @@
 
 (column-number-mode)
 (use-package git-ps1-mode
+  :ensure t
   :config (setq git-ps1-mode-lighter-text-format " [%s]"))
 
 (git-ps1-mode)
@@ -948,8 +961,11 @@
  )
 
 (server-start)
-(require 'powerline)
-(setq powerline-arrow-shape 'arrow)   ;; the default
+
+(use-package powerline
+  :ensure t
+  :config (setq powerline-arrow-shape 'arrow)   ;; the default
+)
 
 (use-package osx-clipboard
   :ensure t
