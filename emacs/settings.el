@@ -989,3 +989,39 @@
 
 (advice-add 'evil-previous-line :after #'patrick-currentfile)
 (advice-add 'evil-next-line :after #'patrick-currentfile)
+
+(defun shell-command-on-region-or-line ()
+  "Run selected text in a terminal or use the current line."
+  (interactive)
+  (async-shell-command
+
+    (if (use-region-p)
+        ;; current selection
+        (buffer-substring (region-beginning) (region-end))
+        ;; current line
+        (thing-at-point 'line t))))
+
+(defun external-shell-command-on-region-or-line ()
+  "Run selected text in a terminal or use the current line."
+  (interactive)
+  (shell-command
+   (concat
+
+    "bash -e"
+
+    (if (use-region-p)
+        ;; current selection
+        (buffer-substring (region-beginning) (region-end))
+        ;; current line
+        (thing-at-point 'line t)))))
+
+(defhydra hydra-command-line (:exit t)
+  "
+    Describe things
+    _e_ run shell command on line
+    _x_ run line in external shell
+  "
+  ("e" shell-command-on-region-or-line)
+  ("x" external-shell-command-on-region-or-line))
+
+(evil-leader/set-key "e" 'hydra-command-line/body)
