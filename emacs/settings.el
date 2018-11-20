@@ -890,7 +890,6 @@
 
 (defhydra hydra-origami (:exit t)
   "
-    Describe things
     _o_ open node
     _c_ close node
     _s_ show only node
@@ -934,7 +933,6 @@
 
 (defhydra hydra-help (:exit t)
   "
-    Describe things
     _v_ describe variables
     _f_ describe function
     _s_ describe symbol
@@ -991,33 +989,27 @@
 (advice-add 'evil-next-line :after #'patrick-currentfile)
 
 (defun shell-command-on-region-or-line ()
-  "Run selected text in a terminal or use the current line."
   (interactive)
   (async-shell-command
 
     (if (use-region-p)
-        ;; current selection
         (buffer-substring (region-beginning) (region-end))
-        ;; current line
         (thing-at-point 'line t))))
 
+;; this needs work...
 (defun external-shell-command-on-region-or-line ()
-  "Run selected text in a terminal or use the current line."
   (interactive)
   (shell-command
-   (concat
+    (concat
 
     "bash -e"
 
     (if (use-region-p)
-        ;; current selection
         (buffer-substring (region-beginning) (region-end))
-        ;; current line
         (thing-at-point 'line t)))))
 
 (defhydra hydra-command-line (:exit t)
   "
-    Describe things
     _e_ run shell command on line
     _x_ run line in external shell
   "
