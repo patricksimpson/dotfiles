@@ -6,14 +6,12 @@
   (interactive)
   (text-scale-set 0)))
 
-
 (setq window-saved "nothing")
 
 (defun gen-multi-term ()
   (interactive)
   (switch-to-buffer-other-window nil)
-  (multi-term)
-)
+  (multi-term))
 
 (global-set-key (kbd "C-SPC k e") 'eval-region)
 (global-set-key (kbd "C-SPC k t") 'gen-multi-term)
@@ -44,14 +42,12 @@
 (defun kill-shell-buffer()
   (interactive)
   (switch-to-buffer-other-window "*Async Shell Command*")
-  (kill-buffer-and-window)
-)
+  (kill-buffer-and-window))
 
 (defun simpson-smart-shell()
   (interactive)
   (unless (ignore-errors (projectile-run-async-shell-command-in-root))
-  (async-shell-command))
-)
+    (async-shell-command)))
 
 (defun simpson-rerun()
   (interactive)
@@ -89,14 +85,6 @@
 
 (advice-add 'evil-window-move-far-left
             :before 'neotree-hide)
-
-;; (defun print-path ()
-;;   "Print out current buffer path"
-;;   (interactive)
-;;   (message (buffer-file-name)))
-
-;(global-set-key (kbd "S-SPC p") 'print-path)
-
 ;http://blog.aaronbieber.com/2016/01/30/dig-into-org-mode.html
 
 (setq minor-mode-perm-list (copy-alist minor-mode-alist))
@@ -117,36 +105,6 @@
 (define-key global-map (kbd "s-t") nil)
 
 (define-key global-map (kbd "C-x k") 'kill-buffer-and-window)
-
-
-(define-key global-map (kbd "C-SPC E") 'simpson-erc)
-(define-key global-map (kbd "C-SPC k E") 'simpson-kill-erc)
-
-(defun simpson-erc()
-  "loads all irc servers defined (as a list) in irc-accounts.gpg"
-  (interactive)
-  (seq-doseq (x sizzle-irc)
-    (erc-tls :server x
-      :nick (car (auth-source-user-and-password x))
-      :password (cadr (auth-source-user-and-password x)))
-  )
-)
-
-(defun simpson-freenode()
-  "connect to freenode irc"
-  (interactive)
-  (let ((x "irc.freenode.net"))
-    (erc :server x
-      :nick (car (auth-source-user-and-password x))
-      :password (cadr (auth-source-user-and-password x)))
-  )
-)
-
-(defun simpson-kill-erc()
-  "quits all erc servers"
-  (interactive)
-  (erc-cmd-GQ nil)
-)
 
 ;; Dired mode additions (evil):
 (define-key dired-mode-map "j" 'dired-next-line)

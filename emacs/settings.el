@@ -55,16 +55,17 @@
   )
 )
 
-(use-package prettier-js
-  :diminish "pretty"
-  :defer 1
-  :init (progn
-          (add-hook 'js2-mode-hook 'prettier-js-mode)
-          (add-hook 'tide-mode-hook 'prettier-js-mode)
-          (add-hook 'rjsx-mode-hook 'prettier-js-mode))
-  :config (setq prettier-js-args '(
-                                   "--bracket-spacing" "true"
-                                   "--single-quote" "true")))
+;; (use-package prettier-js
+;;   :ensure t
+;;   :diminish "pretty"
+;;   :defer 1
+;;   :init (progn
+;;           (add-hook 'js2-mode-hook 'prettier-js-mode)
+;;           (add-hook 'tide-mode-hook 'prettier-js-mode)
+;;           (add-hook 'rjsx-mode-hook 'prettier-js-mode))
+;;   :config (setq prettier-js-args '(
+;;                                    "--bracket-spacing" "true"
+;;                                    "--single-quote" "true")))
 
 (use-package dizzee
   :ensure t
@@ -108,6 +109,11 @@
       (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter))))
 
 (setq neo-theme 'icons)
+(use-package doom-modeline
+      :ensure t
+      :defer t
+      :hook (after-init . doom-modeline-init)
+      :init (add-hook 'after-init-hook #'psimpson-fix-colors))
 
 (use-package diminish
   :ensure t
@@ -126,9 +132,30 @@
     (osx-trash-setup)
     (setq delete-by-moving-to-trash t)))
 
+
+(use-package doom-themes
+  :ensure t
+  :init (load-theme 'doom-tomorrow-night t))
+
 (use-package base16-theme
   :ensure t
+  :hook (after-init . psimpson-fix-colors)
   :init (load-theme 'base16-twilight t))
+
+(defun psimpson-fix-colors()
+  (interactive)
+  (set-face-attribute 'mode-line nil
+      :background "#222222"
+      :foreground "#777777"
+      :box '(:line-width 3 :color "#1d1d1d" :style nil))
+  (set-face-attribute 'mode-line-inactive nil
+      :box '(:line-width 3 :color "#1d1d1d" :style nil))
+
+  (set-face-foreground 'vertical-border "#323536")
+  (set-face-background 'fringe "#1D1D1D"))
+
+(psimpson-fix-colors)
+
 
 (use-package exec-path-from-shell
   :ensure t
@@ -157,16 +184,18 @@
          ("C-SPC V" . vimish-fold-delete)))
 
 (use-package flycheck
+  :ensure t
   :diminish "lint"
   :defer 1
   :init (add-hook 'after-init-hook #'global-flycheck-mode)
   :bind ("C-SPC '" . flycheck-mode)
   :config (progn
-            (setq flycheck-global-modes '(rjsx-mode emacs-lisp-mode json-mode))
-            ;;https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
+            (setq flycheck-global-modes '(rjsx-mode js2-mode emacs-lisp-mode json-mode))
             (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))))
 
 (use-package tide
+  :pin melpa-stable
+  :ensure t
   :after flycheck
   :defer 1
   :config (progn
@@ -404,6 +433,8 @@
       :type 'boolean
       :group 'js2-mode)))
 
+;; (add-hook 'js2-mode-hook #'setup-tide-mode)
+
 (use-package rjsx-mode
   :interpreter (("node" . rjsx-mode))
   :mode (("\\.js\\'" . js2-mode)
@@ -548,22 +579,12 @@
 ))
 
 (column-number-mode)
+
 (use-package git-ps1-mode
-  :ensure t
-  :config (setq git-ps1-mode-lighter-text-format " [%s]"))
+  :ensure t)
+  ;;:config (setq git-ps1-mode-lighter-text-format " [%s]"))
 
 (git-ps1-mode)
-
-;colors are set for ocean dark
-(set-face-attribute 'mode-line nil
-    :background "#dfe1e8"
-    :foreground "#343d46"
-    :box '(:line-width 3 :color "#464B50" :style nil))
-(set-face-attribute 'mode-line-inactive nil
-    :box '(:line-width 3 :color "#323536" :style nil))
-
-(set-face-foreground 'vertical-border "#323536")
-(set-face-background 'fringe "#1D1D1D")
 
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
@@ -746,11 +767,9 @@
   (tide-setup)
   (flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (setq tide-tsserver-executable "~/bin/tsserver")
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
   (company-mode +1))
 
 ;; aligns annotation to the right hand side
@@ -762,13 +781,16 @@
 (add-hook 'rjsx-mode-hook #'setup-tide-mode)
 (add-hook 'js2-mode-hook #'setup-tide-mode)
 
+(use-package company
+  :ensure t)
+
 (use-package ivy
   :ensure t)
 
 (use-package ivy-window-configuration
   :ensure nil
-  :if (file-exists-p "~/patrick/dotfiles/emacs/ivy-window-configuration/")
-  :load-path "~/patrick/dotfiles/emacs/ivy-window-configuration/")
+  :if (file-exists-p "~/dotfiles/emacs/ivy-window-configuration/")
+  :load-path "~/dotfiles/emacs/ivy-window-configuration/")
 
 (use-package hydra
   :ensure t
@@ -782,6 +804,7 @@
             (global-set-key (kbd "C-SPC m") 'hydra-js-modes/body)
             (evil-leader/set-key "e" 'hydra-command-line/body)
             (global-set-key (kbd "C-SPC s") 'hydra-emacs-settings/body)
+            (evil-leader/set-key "i" 'hydra-insert-text/body)
             (evil-leader/set-key "s" 'hydra-emacs-settings/body)))
 
 (defhydra hydra-js2 ()
@@ -906,10 +929,6 @@
 
 (server-start)
 
-(use-package powerline
-  :ensure t
-  :config (setq powerline-arrow-shape 'arrow))
-
 (use-package osx-clipboard
   :ensure t
   :defer 1
@@ -932,22 +951,30 @@
         (buffer-substring (region-beginning) (region-end))
         (thing-at-point 'line t))))
 
-;; this needs work...
-(defun external-shell-command-on-region-or-line ()
+;; this needs work..
+(defun mutli-shell-command-on-region-or-line ()
   (interactive)
-  (shell-command
-    (concat
-
-    "bash -e"
+  (multi-term
 
     (if (use-region-p)
         (buffer-substring (region-beginning) (region-end))
-        (thing-at-point 'line t)))))
+        (thing-at-point 'line t))))
 
 (defhydra hydra-command-line (:exit t)
   "
-    _e_ run shell command on line
-    _x_ run line in external shell
+    _e_ run command in async shell
+    _m_ run command in multi term
   "
   ("e" shell-command-on-region-or-line)
-  ("x" external-shell-command-on-region-or-line))
+  ("m" multi-shell-command-on-region-or-line))
+
+(defhydra hydra-insert-text (:exit t)
+  "
+    inserting text
+    _i_ insert text at visual selection
+    _r_ replace text at visual selection
+  "
+  ("i" string-insert-rectangle)
+  ("r" string-rectangle))
+
+(psimpson-fix-colors)
