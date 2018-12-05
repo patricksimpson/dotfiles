@@ -805,6 +805,7 @@
             (evil-leader/set-key "e" 'hydra-command-line/body)
             (global-set-key (kbd "C-SPC s") 'hydra-emacs-settings/body)
             (evil-leader/set-key "i" 'hydra-insert-text/body)
+            (evil-leader/set-key "b" 'hydra-blogger/body)
             (evil-leader/set-key "s" 'hydra-emacs-settings/body)))
 
 (defhydra hydra-js2 ()
@@ -976,5 +977,39 @@
   "
   ("i" string-insert-rectangle)
   ("r" string-rectangle))
+
+(defhydra hydra-blogger (:exit t)
+  "
+    inserting text
+    _n_ new post
+  "
+  ("n" create-blog-post))
+
+(defun create-blog-post ()
+ "Prompt for the blog post name."
+  (interactive)
+
+  (set 'title
+        (read-string "Enter post title:"))
+
+  (make-post-directory (set 'slug
+        (replace-regexp-in-string " " "-" (downcase title)))))
+
+(defun make-post-directory(name)
+  (interactive)
+  (set 'postdir (
+              concat "~/posts/" name))
+  (set 'npost(
+              concat "~/Dropbox/Notes/" "blog-" name ".txt"))
+
+  (shell-command (concat "mkdir -p " postdir))
+  (shell-command (concat "cp ~/posts/meta.json" " " postdir "/index.json"))
+  (shell-command (concat "touch" " " npost))
+  (shell-command (concat "ln -s " npost " " postdir "/index.md")))
+
+(defun get-post-date()
+  "Get date from shell."
+  (interactive)
+  (shell-command "date +%Y-%m-%d-%I:%M" t))
 
 (psimpson-fix-colors)
