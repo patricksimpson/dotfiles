@@ -51,3 +51,9 @@ function fs() {
     du $arg .[^.]* *
   fi
 }
+
+function extract-text {
+    FILEPATH=$1
+    convert $1 -resize 400% -type Grayscale $1.tif
+    tesseract -l eng $1.tif output
+}

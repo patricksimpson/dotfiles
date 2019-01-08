@@ -458,6 +458,9 @@
 ;yes, css, even you
 (setq-default css-indent-offset 2)
 
+;yes, ts, even you
+(setq-default typescript-indent-level 2)
+
 ;fonts
 (set-face-attribute 'default nil :font "Monaco-12")
 (set-frame-font "Monaco-12" nil t)
@@ -475,6 +478,7 @@
 (require 'web-mode)
 
 ;modes w/ file extensions
+(add-to-list 'auto-mode-alist '("\\.hbs?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs?\\'" . web-mode))
@@ -806,6 +810,7 @@
             (global-set-key (kbd "C-SPC s") 'hydra-emacs-settings/body)
             (evil-leader/set-key "i" 'hydra-insert-text/body)
             (evil-leader/set-key "b" 'hydra-blogger/body)
+            (evil-leader/set-key "d" 'hydra-deploy/body)
             (evil-leader/set-key "s" 'hydra-emacs-settings/body)))
 
 (defhydra hydra-js2 ()
@@ -982,34 +987,94 @@
   "
     inserting text
     _n_ new post
+    _d_ delete post
   "
-  ("n" create-blog-post))
+  ("n" create-blog-post)
+  ("d" delete-blog-post))
+
+(defhydra hydra-deploy (:exit t)
+  "
+    inserting text
+    _d_ deploy master
+    _b_ branch deploy
+  "
+  ("d" deploy-master)
+  ("b" deploy-ansible(simpson-deploy-branch)))
+
+(defun deploy-master()
+  (interactive)
+  (deploy-ansible ("master")))
+
+(defun deploy-branch(branch)
+  (interactive)
+  (list (read-string (format "Enter branch [%s]:" simpson-deploy-branch) nil nil simpson-deploy-branch))
+  (setq simpson-deploy-branch branch)
+  (message (concat "Deploying " simpson-deploy-branch)))
+
+(defun deploy-ansible()
+  (interactive)
+  (shell-command (concat "ansible-playbook playbook.yml --extraVars='revision=" simpson-deploy-branch "'")))
 
 (defun create-blog-post ()
  "Prompt for the blog post name."
   (interactive)
-
-  (set 'title
-        (read-string "Enter post title:"))
-
-  (make-post-directory (set 'slug
-        (replace-regexp-in-string " " "-" (downcase title)))))
+  (let* ((title (read-string "Enter post title:"))
+        (slug (replace-regexp-in-string " " "-" (downcase title))))
+    (make-post-directory slug)))
 
 (defun make-post-directory(name)
+  "Make a post by NAME."
   (interactive)
-  (set 'postdir (
-              concat "~/posts/" name))
-  (set 'npost(
-              concat "~/Dropbox/Notes/" "blog-" name ".txt"))
+  (let* ((postdir (concat "~/posts/" (get-blog-year)))
+         (npost (concat postdir "/" name ".md")))
+    (shell-command (concat "mkdir -p " postdir))
+    (shell-command (concat "cp ~/posts/post.md" " " npost))
+    (find-file npost)))
 
-  (shell-command (concat "mkdir -p " postdir))
-  (shell-command (concat "cp ~/posts/meta.json" " " postdir "/index.json"))
-  (shell-command (concat "touch" " " npost))
-  (shell-command (concat "ln -s " npost " " postdir "/index.md")))
+(defun make-post-test()
+  (interactive)
+  (let* ((postdir (concat "~/posts/" (get-blog-year)))
+         (npost (concat postdir "/" "_NAME-VAR_" ".md")))
+    (message npost)))
 
 (defun get-post-date()
   "Get date from shell."
   (interactive)
-  (shell-command "date +%Y-%m-%d-%I:%M" t))
+  (shell-command "date +%m-%d-%Y-%I:%M%p" t))
+
+(defun get-blog-year()
+  "Get current year."
+  (interactive)
+  (substring
+   (shell-command-to-string "date +%Y")
+  0 -1))
+
+;; (defun make-meta-file(title slug)
+;;   "Fill in the meta data autmoatically."
+;;   (interactive)
+;;   (let* ((meta (get-string-from-file "~/posts/meta.json")))
+;;     (
+;;      (replace-regexp-in-string "_TITLE_" title (
+;;      (replace-regexp-in-string "_SLUG_" slug (
+;;      (replace-regexp-in-string "_CDATE_" get-post-date (
+;;      (replace-regexp-in-string "_UDATE_" get-post-date meta))))))))))
+
+(defun get-string-from-file (filePath)
+  "Return FILEPATH's file content."
+  (interactive)
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (buffer-string)))
 
 (psimpson-fix-colors)
+
+(defun image-to-text ()
+  (interactive)
+  (if buffer-file-name
+     (progn
+      (shell-command (concat "convert " buffer-file-name " -resize 400% -type Grayscale " buffer-file-name ".tif"))
+      (shell-command (concat "tesseract -l eng " buffer-file-name ".tif " buffer-file-name))
+      (shell-command (concat "rm " buffer-file-name ".tif"))
+      (find-file (concat buffer-file-name ".txt")))))
+
+;;; settings.el ends here
