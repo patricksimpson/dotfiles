@@ -27,13 +27,12 @@
    )
 )
 
-;; This is for debugging use-package.
-;;(setq use-package-verbose t)
+(setq use-package-verbose t)
 
 (show-paren-mode)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(setq visible-bell nil)
+(Setq visible-bell nil)
 
 (setq ring-bell-function (lambda ()
     (invert-face 'mode-line)
@@ -41,6 +40,13 @@
 ))
 
 (global-set-key (kbd "C-SPC") nil)
+
+(defvar simpson-dropbox-path ""
+  "Variable that points to the proper Dropbox path.")
+
+(cond
+ ((file-exists-p "~/Dropbox (Personal)/") (setq simpson-dropbox-path "~/Dropbox (Personal)/"))
+ ((file-exists-p "~/Dropbox/") (setq simpson-dropbox-path "~/Dropbox/")))
 
 (use-package json-mode
   :ensure t
@@ -55,17 +61,8 @@
   )
 )
 
-;; (use-package prettier-js
-;;   :ensure t
-;;   :diminish "pretty"
-;;   :defer 1
-;;   :init (progn
-;;           (add-hook 'js2-mode-hook 'prettier-js-mode)
-;;           (add-hook 'tide-mode-hook 'prettier-js-mode)
-;;           (add-hook 'rjsx-mode-hook 'prettier-js-mode))
-;;   :config (setq prettier-js-args '(
-;;                                    "--bracket-spacing" "true"
-;;                                    "--single-quote" "true")))
+(use-package ag
+  :ensure t)
 
 (use-package dizzee
   :ensure t
@@ -251,6 +248,11 @@
     (plist-put evilmi-plugins 'handlebars-mode '((evilmi-simple-get-tag evilmi-simple-jump)
       (evilmi-html-get-tag evilmi-html-jump)))))
 
+(global-set-key (kbd "C-SPC d") (lambda() (interactive)
+                                  (dired (concat simpson-dropbox-path "Notes/") "-laGht")))
+
+(define-key dired-mode-map "r" '(lambda() (interactive) (ag (file-truename dired-directory))))
+
 (use-package helm
   :ensure t
   :diminish ""
@@ -342,6 +344,8 @@
     (defconst ac-css-pseudo-classes nil)))
 
 (use-package org
+  :defer 2
+  :if (file-exists-p (concat simpson-dropbox-path "org/tasks.txt"))
   :ensure t
   :bind (
     ("C-SPC c" . simpson-org-task-capture)
@@ -352,30 +356,41 @@
     ("\\.txt\\'" . org-mode))
   :config (progn
     ;org mode location
-    (setq org-path "~/Dropbox/org")
-    (setq org-agenda-files '(org-path))
-    ;log when done
+    (setq org-agenda-file-regexp "\\`[^.].*\\.txt\\'")
+    (setq org-agenda-files `(,(concat simpson-dropbox-path "org")))
     (setq org-log-done t)
-    ;set deadline warning
     (setq org-deadline-warning-days 3)
-    ;org mode keywords
+    (setq org-agenda-custom-commands '(("n" "Agenda and all TODOs"
+                                                ((agenda "")
+                                                 (alltodo "")))
+                                               ("w" "Work tasks" ((agenda "") (todo ""))
+                                                ((org-agenda-files `(,(concat simpson-dropbox-path "org/tasks.txt")))))
+                                               ("s" "side projects" ((agenda "") (todo ""))
+                                                ((org-agenda-files `(,(concat simpson-dropbox-path "org/side.txt")))))))
     (setq org-todo-keywords
           '((sequence "TODO" "IN-PROGRESS" "WAITING" "|" "DONE" "CANCELED")))
 
     ;capture template [[http://blog.aaronbieber.com/2016/01/30/dig-into-org-mode.html][org caputre]]
     (setq org-capture-templates
-          '(("a" "General Tasks" entry
-            (file (concat org-path "/tasks.txt"))
-            "* TODO %? %^g
-    :CREATED: %T
-    :END:")
-          ("h" "Home Tasks" entry
-            (file (concat org-path "/home.txt"))
-            "* TODO %? %^g")
-          ("w" "Work Tasks" entry
-            (file (concat org-path "/work.txt"))
-            "* TODO %? %^g")
-          ))
+          `(("a" "General Tasks" entry
+            (file ,(concat simpson-dropbox-path "org/tasks.txt"))
+"* TODO %? %^g
+   :PROPERTIES:
+   :CREATED: %T
+   :END:")
+          ("s" "Side Projects" entry
+            (file ,(concat simpson-dropbox-path "org/side.txt"))
+"* TODO %? %^g
+   :PROPERTIES:
+   :CREATED: %T
+   :END:")
+          ("p" "Personal tasks" entry
+            (file ,(concat simpson-dropbox-path "org/personal.txt"))
+"* TODO %? %^g
+   :PROPERTIES:
+   :CREATED: %T
+   :END:"))
+)
     (setq org-refile-use-outline-path 'file)
     ;restore windows after org-todo-list closes
     (setq org-agenda-restore-windows-after-quit t)
@@ -645,18 +660,6 @@
 )
 (yas-global-mode 1)
 
-(use-package deft
-  :ensure f
-  :bind ("C-SPC d" . deft)
-  :config (progn
-    (add-to-list 'evil-emacs-state-modes 'deft-mode)
-    (setq deft-extensions '("txt" "tex" "org"))
-    (setq deft-directory "/Users/patrick/notes")
-    (setq deft-use-filename-as-title t)
-    (setq deft-auto-save-interval 60.0)
-  )
-)
-
 (use-package emmet-mode
   :ensure t
   :diminish "zen"
@@ -796,6 +799,24 @@
   :if (file-exists-p "~/dotfiles/emacs/ivy-window-configuration/")
   :load-path "~/dotfiles/emacs/ivy-window-configuration/")
 
+(defun simpson-list-notes(search)
+  "open notes directory"
+  (interactive "sSearch Notes: ")
+  (ag-dired (concat simpson-dropbox-path "Notes/") search)
+)
+
+(defun simpson-new-note(name)
+  "Create new file for nvAlt with NAME."
+  (interactive "sName of file: ")
+  (let* ((use-buf (y-or-n-p "Use this buffer? "))
+         (date (replace-regexp-in-string "\n$" "" (shell-command-to-string "date +%m-%d-%y")))
+         (file (concat simpson-dropbox-path "Notes/" date "-" name ".txt")))
+    (if use-buf
+        (write-file file)
+      (write-region "" "" file)
+      (find-file file)
+      )))
+
 (use-package hydra
   :ensure t
   :defer 1
@@ -811,7 +832,23 @@
             (evil-leader/set-key "i" 'hydra-insert-text/body)
             (evil-leader/set-key "b" 'hydra-blogger/body)
             (evil-leader/set-key "d" 'hydra-deploy/body)
+            (evil-leader/set-key "o" 'hydra-org/body)
             (evil-leader/set-key "s" 'hydra-emacs-settings/body)))
+
+(defhydra hydra-org (:exit t)
+  "
+    ORG MODE
+    _n_ new note
+    _l_ list notes
+    _t_ new task
+    _f_ narrow focus
+    _u_ unnarrow focus
+  "
+  ("n" simpson-new-note)
+  ("l" simpson-list-notes)
+  ("t" org-capture)
+  ("f" org-narrow-to-subtree)
+  ("u" widen))
 
 (defhydra hydra-js2 ()
   "
@@ -1011,7 +1048,8 @@
   (setq simpson-deploy-branch branch)
   (message (concat "Deploying " simpson-deploy-branch)))
 
-(defun deploy-ansible()
+(defun deploy-ansible ()
+  "Deploy ansible based projects."
   (interactive)
   (shell-command (concat "ansible-playbook playbook.yml --extraVars='revision=" simpson-deploy-branch "'")))
 
@@ -1020,44 +1058,43 @@
   (interactive)
   (let* ((title (read-string "Enter post title:"))
         (slug (replace-regexp-in-string " " "-" (downcase title))))
-    (make-post-directory slug)))
+    (make-post-directory slug title)))
 
-(defun make-post-directory(name)
-  "Make a post by NAME."
+(defun make-post-directory(name title)
+  "Make a post by NAME, TITLE."
   (interactive)
   (let* ((postdir (concat "~/posts/" (get-blog-year)))
          (npost (concat postdir "/" name ".md")))
     (shell-command (concat "mkdir -p " postdir))
-    (shell-command (concat "cp ~/posts/post.md" " " npost))
+    (shell-command (concat "touch " npost))
+    (blog-make-meta title npost)
     (find-file npost)))
 
-(defun make-post-test()
-  (interactive)
-  (let* ((postdir (concat "~/posts/" (get-blog-year)))
-         (npost (concat postdir "/" "_NAME-VAR_" ".md")))
-    (message npost)))
+(defun blog-make-meta (title npost)
+  (let*
+         ((date (get-post-date))
+          (a (get-string-from-file "~/posts/template.md"))
+          (b (replace-in-string "_TITLE_" title a))
+          (c (replace-in-string "_DATE_" date b)))
+      (append-to-file c nil npost)))
 
-(defun get-post-date()
+(defun get-post-date ()
   "Get date from shell."
   (interactive)
-  (shell-command "date +%m-%d-%Y-%I:%M%p" t))
+  (concat
+     (substring
+      (shell-command-to-string "date \"+%Y-%m-%d%l:%M %p\"")
+      0 -1)))
 
-(defun get-blog-year()
+(defun get-blog-year ()
   "Get current year."
   (interactive)
   (substring
    (shell-command-to-string "date +%Y")
   0 -1))
 
-;; (defun make-meta-file(title slug)
-;;   "Fill in the meta data autmoatically."
-;;   (interactive)
-;;   (let* ((meta (get-string-from-file "~/posts/meta.json")))
-;;     (
-;;      (replace-regexp-in-string "_TITLE_" title (
-;;      (replace-regexp-in-string "_SLUG_" slug (
-;;      (replace-regexp-in-string "_CDATE_" get-post-date (
-;;      (replace-regexp-in-string "_UDATE_" get-post-date meta))))))))))
+(defun replace-in-string (what with in)
+  (replace-regexp-in-string (regexp-quote what) with in 'literal))
 
 (defun get-string-from-file (filePath)
   "Return FILEPATH's file content."

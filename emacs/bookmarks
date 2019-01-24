@@ -8,8 +8,8 @@
  (rear-context-string . " Sparkbox Admin\n")
  (position . 209))
 ("org-capture-last-stored"
- (filename . "~/Dropbox (Personal)/org/home.org")
- (front-context-string . "* TODO  test :do")
- (rear-context-string . "es on the mower\n")
- (position . 293))
+ (filename . "~/Dropbox/org/tasks.txt")
+ (front-context-string . "* TODO disc-802 ")
+ (rear-context-string . "count.\n   :END:\n")
+ (position . 2409))
 )
