@@ -832,20 +832,25 @@
             (evil-leader/set-key "i" 'hydra-insert-text/body)
             (evil-leader/set-key "b" 'hydra-blogger/body)
             (evil-leader/set-key "d" 'hydra-deploy/body)
+            (evil-leader/set-key "a" 'hydra-org/body)
             (evil-leader/set-key "o" 'hydra-org/body)
             (evil-leader/set-key "s" 'hydra-emacs-settings/body)))
 
 (defhydra hydra-org (:exit t)
   "
     ORG MODE
+    _a_ agenda
+    _l_ agenda-list
     _n_ new note
-    _l_ list notes
+    _s_ search notes
     _t_ new task
     _f_ narrow focus
     _u_ unnarrow focus
   "
+  ("a" org-agenda)
+  ("l" org-agenda-list)
   ("n" simpson-new-note)
-  ("l" simpson-list-notes)
+  ("s" simpson-list-notes)
   ("t" org-capture)
   ("f" org-narrow-to-subtree)
   ("u" widen))
@@ -1083,7 +1088,7 @@
   (interactive)
   (concat
      (substring
-      (shell-command-to-string "date \"+%Y-%m-%d%l:%M %p\"")
+      (shell-command-to-string "date \"+%Y-%m-%d %l:%M %p\"")
       0 -1)))
 
 (defun get-blog-year ()
