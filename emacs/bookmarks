@@ -9,7 +9,7 @@
  (position . 209))
 ("org-capture-last-stored"
  (filename . "~/Dropbox/org/tasks.txt")
- (front-context-string . "* TODO disc-802 ")
- (rear-context-string . "count.\n   :END:\n")
- (position . 2409))
+ (front-context-string . "* TODO disc-851 ")
+ (rear-context-string . "ter 'add-count)\n")
+ (position . 600))
 )

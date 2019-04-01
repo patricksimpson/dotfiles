@@ -32,7 +32,7 @@
 (show-paren-mode)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(Setq visible-bell nil)
+(setq visible-bell nil)
 
 (setq ring-bell-function (lambda ()
     (invert-face 'mode-line)
@@ -62,6 +62,9 @@
 )
 
 (use-package ag
+  :ensure t)
+
+(use-package dired-filter
   :ensure t)
 
 (use-package dizzee
@@ -187,7 +190,6 @@
   :init (add-hook 'after-init-hook #'global-flycheck-mode)
   :bind ("C-SPC '" . flycheck-mode)
   :config (progn
-            (setq flycheck-global-modes '(rjsx-mode js2-mode emacs-lisp-mode json-mode))
             (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))))
 
 (use-package tide
@@ -375,21 +377,21 @@
           `(("a" "General Tasks" entry
             (file ,(concat simpson-dropbox-path "org/tasks.txt"))
 "* TODO %? %^g
-   :PROPERTIES:
-   :CREATED: %T
-   :END:")
+:PROPERTIES:
+:CREATED: %T
+:END:")
           ("s" "Side Projects" entry
             (file ,(concat simpson-dropbox-path "org/side.txt"))
 "* TODO %? %^g
-   :PROPERTIES:
-   :CREATED: %T
-   :END:")
+:PROPERTIES:
+:CREATED: %T
+:END:")
           ("p" "Personal tasks" entry
             (file ,(concat simpson-dropbox-path "org/personal.txt"))
 "* TODO %? %^g
-   :PROPERTIES:
-   :CREATED: %T
-   :END:"))
+:PROPERTIES:
+:CREATED: %T
+:END:"))
 )
     (setq org-refile-use-outline-path 'file)
     ;restore windows after org-todo-list closes
@@ -433,7 +435,6 @@
   :diminish "JS"
   :interpreter (("node" . js2-mode))
     :config (progn
-    ;; (add-hook 'js2-mode-hook 'relative-line-numbers-mode)
     (setq js2-basic-offset 2)
     (setq js2-highlight-level 3)
     (setq js2-bounce-indent-p t)
@@ -450,9 +451,13 @@
 
 ;; (add-hook 'js2-mode-hook #'setup-tide-mode)
 
+(use-package flow-minor-mode
+  :ensure t)
+
 (use-package rjsx-mode
+  :ensure t
   :interpreter (("node" . rjsx-mode))
-  :mode (("\\.js\\'" . js2-mode)
+  :mode (("\\.js\\'" . rjsx-mode)
          ("\\.jsx?\\'" . rjsx-mode))
   :config (progn
             (setq js2-basic-offset 2)
@@ -460,7 +465,9 @@
             (setq js2-bounce-indent-p t)
             (electric-indent-mode -1)
             (setq js2-mode-show-strict-warnings nil)
+            (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
             (add-hook 'js2-mode-hook (lambda() (setq show-trailing-whitespace t)))
+            (add-hook 'rjsx-mode-hook 'flow-minor-enable-automatically)
             (add-hook 'rjsx-mode-hook (lambda() (setq mode-name "jsx")))))
 
 ;indents! so brutal, each mode can have their own, e.g. css
@@ -499,7 +506,7 @@
 (add-to-list 'auto-mode-alist '("\\.ejs?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js?\\'" . rjsx-mode))
 
 (use-package markdown-mode
   :ensure t
@@ -733,7 +740,7 @@
 
 (use-package editorconfig
   :ensure t
-  :init (editorconfig-mode 1)
+  :init (editorconfig-mode 0)
 )
 
 ; (erc-log-mode)
@@ -1118,5 +1125,36 @@
       (shell-command (concat "tesseract -l eng " buffer-file-name ".tif " buffer-file-name))
       (shell-command (concat "rm " buffer-file-name ".tif"))
       (find-file (concat buffer-file-name ".txt")))))
+
+(require 'iimage)
+(autoload 'iimage-mode "iimage" "Support Inline image minor mode." t)
+(autoload 'turn-on-iimage-mode "iimage" "Turn on Inline image minor mode." t)
+(add-to-list 'iimage-mode-image-regex-alist '("@startuml\s+\\(.+\\)" . 1))
+
+;; Rendering plantuml
+(defun plantuml-render-buffer ()
+  (interactive)
+  (message "PLANTUML Start rendering")
+  (shell-command (concat "java -jar ~/bin/plantuml.jar"
+                         buffer-file-name))
+  (message (concat "PLANTUML Rendered:  " (buffer-name))))
+
+;; Image reloading
+(defun reload-image-at-point ()
+  (interactive)
+  (message "reloading image at point in the current buffer...")
+  (image-refresh (get-text-property (point) 'display)))
+
+;; Image resizing and reloading
+(defun resize-image-at-point ()
+  (interactive)
+  (message "resizing image at point in the current buffer123...")
+  (let* ((image-spec (get-text-property (point) 'display))
+         (file (cadr (member :file image-spec))))
+    (message (concat "resizing image..." file))
+    (shell-command (format "convert -resize %d %s %s "
+                           (* (window-width (selected-window)) (frame-char-width))
+                           file file))
+    (reload-image-at-point)))
 
 ;;; settings.el ends here

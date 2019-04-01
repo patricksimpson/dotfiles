@@ -127,8 +127,21 @@ function devurl() {
 
 export PATH="$HOME/.bin:$PATH"
 export PATH=$PATH:$HOME/Library/Python/2.7/bin
+export PATH=$PATH:~/bin
+export PATH=$PATH:/usr/local/bin
+GRAPHVIZ_DOT=/usr/local/bin/dot
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH=$PATH:$HOME/Library/Python/2.7/bin
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/patrick/projects/micro-blog/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/patrick/projects/micro-blog/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/patrick/projects/micro-blog/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/patrick/projects/micro-blog/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/patrick/projects/micro-blog/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/patrick/projects/micro-blog/node_modules/tabtab/.completions/slss.zsh
