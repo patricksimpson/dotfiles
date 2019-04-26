@@ -230,6 +230,7 @@
     (evil-leader/set-key "c" 'fci-mode)
     (evil-leader/set-key "v" 'evil-window-vnew)
     (evil-leader/set-key "x" 'evil-window-new)
+    (evil-leader/set-key "l" 'display-line-numbers-mode)
     (evil-ex-define-cmd "W" 'save-buffer)
     (use-package key-chord
       :ensure t
@@ -308,7 +309,7 @@
     ;https://github.com/magit/magit/pull/2513
     ;Users who use Tramp and experience delays, should consider setting
     ;the option to `magit-auto-revert-repository-buffer-p'.
-    (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
+    ;; (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
     (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
     (set-face-foreground 'magit-blame-date "#ebcb8b")
     (set-face-foreground 'magit-blame-hash "#ebcb8b")
@@ -426,7 +427,7 @@
 (use-package multi-term
   :ensure t
   :config (progn
-    (setq multi-term-program "/bin/zsh")
+    (setq multi-term-program "/bin/bash")
     (setq multi-term-program-switches "--login")
     (define-key global-map (kbd "C-SPC p") 'term-paste)))
 
@@ -1156,5 +1157,29 @@
                            (* (window-width (selected-window)) (frame-char-width))
                            file file))
     (reload-image-at-point)))
+
+(use-package inf-ruby
+  :ensure t)
+
+(use-package rspec-mode
+  :ensure t
+  :defer 1
+  :mode ("*spec.rb" . rspec-mode))
+
+(defadvice rspec-compile (around rspec-compile-around)
+  (let ((shell-file-name "/bin/bash"))
+    ad-do-it))
+
+(ad-activate 'rspec-compile)
+
+(setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("Capfile" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("Gemfile" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.rake" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.god" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.rb" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.ru" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.gemspec" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.erb" . web-mode) auto-mode-alist))
 
 ;;; settings.el ends here

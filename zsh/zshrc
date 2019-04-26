@@ -145,3 +145,13 @@ export PATH=$PATH:$HOME/Library/Python/2.7/bin
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /Users/patrick/projects/micro-blog/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/patrick/projects/micro-blog/node_modules/tabtab/.completions/slss.zsh
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+eval "$(rbenv init -)"
+export PATH=/usr/local/opt/imagemagick@6/bin:$PATH
+export PKG_CONFIG_PATH=/usr/local/opt/imagemagick@6/lib/pkgconfig:$PKG_CONFIG_PATH
+
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/mysql-client/lib"
+export CPPFLAGS="-I/usr/local/opt/mysql-client/include"
+export PKG_CONFIG_PATH="/usr/local/opt/mysql-client/lib/pkgconfig:$PKG_CONFIG_PATH"
