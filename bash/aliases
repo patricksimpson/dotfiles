@@ -50,3 +50,6 @@ alias d='docker'
 alias dm='docker-machine'
 alias h="history | grep -E -v '^ *[0-9]+ *h ' | grep "
 alias mux="tmuxinator"
+alias beam="cd ~/projects/beam/"
+alias emacs="~/emacs.sh"
+alias ec='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient'

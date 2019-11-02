@@ -102,19 +102,13 @@
       (define-key evil-normal-state-local-map (kbd "m") 'neotree-rename-node)
       (define-key evil-normal-state-local-map (kbd "c") 'neotree-create-node)
       (define-key evil-normal-state-local-map (kbd "d") 'neotree-delete-node)
-
+      (setq-local linum-mode nil)
       (define-key evil-normal-state-local-map (kbd "s") 'neotree-enter-vertical-split)
       (define-key evil-normal-state-local-map (kbd "S") 'neotree-enter-horizontal-split)
 
       (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter))))
 
 (setq neo-theme 'icons)
-(use-package doom-modeline
-      :ensure t
-      :defer t
-      :hook (after-init . doom-modeline-init)
-      :init (add-hook 'after-init-hook #'psimpson-fix-colors))
-
 (use-package diminish
   :ensure t
   :config (progn
@@ -133,29 +127,39 @@
     (setq delete-by-moving-to-trash t)))
 
 
+(use-package doom-modeline
+      :ensure t
+      :defer t
+      :init (add-hook 'after-init-hook #'doom-modeline-mode))
+
 (use-package doom-themes
   :ensure t
   :init (load-theme 'doom-tomorrow-night t))
 
 (use-package base16-theme
   :ensure t
-  :hook (after-init . psimpson-fix-colors)
   :init (load-theme 'base16-twilight t))
+
+
+(require 'highlight-indentation)
+(require 'smartparens-config)
+
+(defvar psimpson-fixed-colors nil "Used to flag if the color fix has been applied.")
 
 (defun psimpson-fix-colors()
   (interactive)
-  (set-face-attribute 'mode-line nil
-      :background "#222222"
-      :foreground "#777777"
-      :box '(:line-width 3 :color "#1d1d1d" :style nil))
-  (set-face-attribute 'mode-line-inactive nil
-      :box '(:line-width 3 :color "#1d1d1d" :style nil))
-
-  (set-face-foreground 'vertical-border "#323536")
-  (set-face-background 'fringe "#1D1D1D"))
-
-(psimpson-fix-colors)
-
+    (message "fixed colors")
+    (setq psimpson-fixed-colors t)
+    (set-face-attribute 'mode-line nil
+        :background "#222222"
+        :foreground "#777777"
+        :box '(:line-width 3 :color "#1d1d1d" :style nil))
+    (set-face-attribute 'mode-line-inactive nil
+        :box '(:line-width 3 :color "#1d1d1d" :style nil))
+    (set-face-background 'highlight-indentation-face "#222222")
+    (set-face-background 'highlight-indentation-current-column-face "#323232")
+    (set-face-foreground 'vertical-border "#323536")
+    (set-face-background 'fringe "#1D1D1D"))
 
 (use-package exec-path-from-shell
   :ensure t
@@ -230,6 +234,8 @@
     (evil-leader/set-key "c" 'fci-mode)
     (evil-leader/set-key "v" 'evil-window-vnew)
     (evil-leader/set-key "x" 'evil-window-new)
+    (evil-leader/set-key "h" 'highlight-indentation-current-column-mode)
+    (evil-leader/set-key "r" 'redraw-display)
     (evil-leader/set-key "l" 'display-line-numbers-mode)
     (evil-ex-define-cmd "W" 'save-buffer)
     (use-package key-chord
@@ -442,6 +448,7 @@
     (electric-indent-mode -1)
     (setq js2-mode-show-strict-warnings nil)
     (add-hook 'js2-mode-hook '(lambda() (setq show-trailing-whitespace t)))
+
     (global-set-key (kbd "C-SPC k j") 'js2-mode-hide-warnings-and-errors)
     (defcustom js2-strict-missing-semi-warning nil
       "Non-nil to warn about semicolon auto-insertion after statement.
@@ -469,6 +476,9 @@
             (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
             (add-hook 'js2-mode-hook (lambda() (setq show-trailing-whitespace t)))
             (add-hook 'rjsx-mode-hook 'flow-minor-enable-automatically)
+            (add-hook 'rjsx-mode-hook 'prettier-js-mode)
+            (add-hook 'js2-mode-hook 'prettier-js-mode)
+            (add-hook 'web-mode-hook 'prettier-js-mode)
             (add-hook 'rjsx-mode-hook (lambda() (setq mode-name "jsx")))))
 
 ;indents! so brutal, each mode can have their own, e.g. css
@@ -670,7 +680,7 @@
 
 (use-package emmet-mode
   :ensure t
-  :diminish "zen"
+  :diminish "emmet-mode"
   :bind (
     ("C-c e" . emmet-expand-line)
     ("C-c y" . emmet-next-edit-point)
@@ -842,7 +852,8 @@
             (evil-leader/set-key "d" 'hydra-deploy/body)
             (evil-leader/set-key "a" 'hydra-org/body)
             (evil-leader/set-key "o" 'hydra-org/body)
-            (evil-leader/set-key "s" 'hydra-emacs-settings/body)))
+            (evil-leader/set-key "s" 'hydra-emacs-settings/body)
+            (evil-leader/set-key "p" 'hydra-robe/body)))
 
 (defhydra hydra-org (:exit t)
   "
@@ -1116,8 +1127,6 @@
     (insert-file-contents filePath)
     (buffer-string)))
 
-(psimpson-fix-colors)
-
 (defun image-to-text ()
   (interactive)
   (if buffer-file-name
@@ -1172,6 +1181,25 @@
 
 (ad-activate 'rspec-compile)
 
+(require 'prettier-js)
+
+(use-package rubocopfmt
+  :ensure t
+  :diminish ":fire:"
+  :init (progn
+    ;; (add-hook 'ruby-mode-hook #'rubocopfmt-mode)
+          (remove-hook 'ruby-mode-hook #'rubocopfmt-mode)
+          (add-hook 'ruby-mode-hook 'display-line-numbers-mode)
+
+  )
+  )
+
+(use-package projectile-rails
+  :ensure t
+)
+(projectile-rails-global-mode)
+(add-hook 'neo-after-create-hook (lambda (&optional dummy) (display-line-numbers-mode -1)))
+
 (setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Capfile" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Gemfile" . ruby-mode) auto-mode-alist))
@@ -1182,4 +1210,50 @@
 (setq auto-mode-alist (cons '("\\.gemspec" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.erb" . web-mode) auto-mode-alist))
 
+(add-hook 'js2-mode-hook 'display-line-numbers-mode)
+(add-hook 'web-mode-hook 'display-line-numbers-mode)
+(add-hook 'ruby-mode-hook 'display-line-numbers-mode)
+(add-hook 'css-mode-hook 'display-line-numbers-mode)
+(add-hook 'json-mode-hook 'display-line-numbers-mode)
+(add-hook 'rjsx-mode-hook 'display-line-numbers-mode)
+
+(add-hook 'change-major-mode-hook #'psimpson-fix-colors)
+(add-hook 'after-change-major-mode-hook  #'psimpson-fix-colors)
+
+(add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+(add-hook 'js-mode-hook #'smartparens-mode)
+(add-hook 'ruby-mode-hook #'smartparens-mode)
+(global-robe-mode)
+
+
+
+(defhydra hydra-robe (:exit t)
+  "
+    robe mode
+    _r_ start robe mode
+    _d_ jump to definition
+    _a_ ask for and jump to defintion
+    _c_ rubocop format buffer
+    _s_ go to spec file
+  "
+  ("r" robe-start)
+  ("d" robe-jump)
+  ("a" robe-ask)
+  ("c" rubocopfmt)
+  ("s" rspec-toggle-spec-and-target))
+
+
+(use-package dired
+  :hook (dired-mode . dired-hide-details-mode)
+  :config
+  ;; Colourful columns.
+  (use-package diredfl
+    :ensure t
+    :config
+    (diredfl-global-mode 1)))
+
+(package-install-file "~/dotfiles/emacs/dired-git-info/dired-git-info.el")
+
+(with-eval-after-load 'dired
+  (define-key dired-mode-map ")" 'dired-git-info-mode))
 ;;; settings.el ends here
