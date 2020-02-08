@@ -7,12 +7,14 @@
 (package-initialize)
 
 
-(load "~/.emacs.d/settings.el")
-(load "~/.emacs.d/functions.el")
-(load "~/.emacs.d/themes.el")
-(load "~/.emacs.d/packages.el")
-(load "~/.emacs.d/evil.el")
-(load "~/.emacs.d/languages.el")
+(load "~/dotfiles/emacs/settings.el")
+(load "~/dotfiles/emacs/functions.el")
+(load "~/dotfiles/emacs/themes.el")
+(load "~/dotfiles/emacs/packages.el")
+(load "~/dotfiles/emacs/evil.el")
+(load "~/dotfiles/emacs/ide.el")
+(load "~/dotfiles/emacs/languages/ruby.el")
+(load "~/dotfiles/emacs/languages/javascript.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

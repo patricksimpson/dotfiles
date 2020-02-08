@@ -15,6 +15,7 @@ Lightweight, fast, and looks sick...
  - [WIP] flycheck (linting)
  - [WIP] tide (documentation lookup)
  - [WIP] company (autocomplete)
+ - [WIP] Hyrda (menus)
 
 #### Theme
 

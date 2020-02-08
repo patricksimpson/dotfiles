@@ -18,6 +18,7 @@
          ("C-c p" . projectile-find-file))
   :config (progn
             (projectile-mode)
+            (setq projectile-indexing-method 'hybrid)
             (setq projectile-enable-caching nil)
             (setq projectile-switch-project-action 'projectile-find-file)
             (setq projectile-project-search-path '("~/projects"))
