@@ -8,9 +8,9 @@
 
 
 (load "~/.emacs.d/settings.el")
+(load "~/.emacs.d/functions.el")
 (load "~/.emacs.d/themes.el")
 (load "~/.emacs.d/packages.el")
-(load "~/.emacs.d/functions.el")
 (load "~/.emacs.d/evil.el")
 
 (custom-set-variables
