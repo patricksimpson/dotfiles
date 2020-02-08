@@ -1,13 +1,11 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-;(key-chord-mode 1)
 (column-number-mode)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq visible-bell nil)
-;(setq key-chord-two-keys-delay 0.1)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq inhibit-splash-screen t)
@@ -27,3 +25,7 @@
 (defun assume-new-is-modified ()
   (when (not (file-exists-p (buffer-file-name)))
     (set-buffer-modified-p t)))
+
+(global-set-key (kbd "C-SPC") nil)
+
+(global-display-line-numbers-mode)
