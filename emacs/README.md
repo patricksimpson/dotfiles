@@ -2,6 +2,7 @@
 
 Lightweight, fast, and looks sick...
 
+![](emacs-2020-1.png)
 
 ### Packages
 
