@@ -20,7 +20,10 @@
             (projectile-mode)
             (setq projectile-enable-caching nil)
             (setq projectile-switch-project-action 'projectile-find-file)
-            (setq projectile-completion-system 'ivy)))
+            (setq projectile-project-search-path '("~/projects"))
+            (setq projectile-completion-system 'ivy)
+            (add-to-list 'projectile-globally-ignored-directories "*node_modules")
+            (add-to-list 'projectile-globally-ignored-directories "*bower_components")))
 
 (use-package counsel-projectile
   :ensure t)
