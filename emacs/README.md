@@ -8,23 +8,35 @@ Lightweight, fast, and looks sick...
 
 #### IDE
  
- - magit
- - evil, evil-leader, evil-magit
- - ivy
- - projectile, counsel-projectile
- - [WIP] flycheck (linting)
- - [WIP] tide (documentation lookup)
- - [WIP] company (autocomplete)
- - [WIP] Hyrda (menus)
+ - [magit](https://github.com/magit/magit)
+ - [evil](https://github.com/emacs-evil/evil)
+   - [evil-leader](https://github.com/cofi/evil-leader)
+   - [evil-magit](https://github.com/emacs-evil/evil-magit)
+ - [ivy](https://github.com/abo-abo/swiper)
+ - [projectile](https://github.com/bbatsov/projectile)
+   - [counsel-projectile](https://github.com/ericdanan/counsel-projectile)
+ - [flycheck](https://github.com/flycheck/flycheck)
+ - [tide](https://github.com/ananthakumaran/tide)
+ - [company](https://github.com/company-mode/company-mode)
+ - [hyrda](https://github.com/abo-abo/hydra)
 
 #### Theme
 
- - doom-themes, doom-tomorrow-night
- - doom-modeline
- - all-the-icons
+ - [doom-themes](https://github.com/hlissner/emacs-doom-themes)
+   - [doom-tomorrow-night](https://github.com/hlissner/emacs-doom-themes/blob/master/themes/doom-tomorrow-night-theme.el)
+ - [doom-modeline](https://github.com/seagle0128/doom-modeline)
+ - [all-the-icons](https://github.com/domtronn/all-the-icons.el)
 
 #### Language Support
- - markdown: markdown-mode
- - html/css: web-mode
- - [WIP] javascript: javascript-mode, json-mode
- - [WIP] ruby: robe-mode, rspec-mode
+ - Markdown 
+   - [markdown](https://github.com/jrblevin/markdown-mode)
+ - HTML/CSS
+   - [web-mode](https://github.com/fxbois/web-mode)
+ - JavaScript
+   - [js2](https://github.com/mooz/js2-mode)
+   - [json](https://github.com/joshwnj/json-mode)
+   - [js2refactor](https://github.com/magnars/js2-refactor.el)
+ - Ruby
+   - [inf-ruby](https://github.com/nonsequitur/inf-ruby/)
+   - [robe-mode](https://github.com/dgutov/robe)
+   - [rspec-mode](https://github.com/pezra/rspec-mode)
