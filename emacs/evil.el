@@ -6,16 +6,18 @@
   :config (progn
             (global-evil-leader-mode)
             (evil-leader/set-leader ",")
-            (evil-leader/set-key "v" 'simpson-vertical-split)
             (define-key evil-normal-state-map "\C-p" 'projectile-find-file)
             (define-key evil-normal-state-map (kbd "C-=") 'counsel-switch-buffer-other-window)
             (define-key evil-normal-state-map (kbd "C-b") 'projectile-switch-project)
             (define-key evil-normal-state-map (kbd "C-m") 'magit)
-            (evil-leader/set-key "f" 'counsel-projectile-ag)
-            (evil-leader/set-key "v" 'evil-window-vnew)
-            (evil-leader/set-key "x" 'evil-window-new)
-            (evil-leader/set-key "r" 'redraw-display)
-            (evil-leader/set-key "l" 'display-line-numbers-mode)
+            (evil-leader/set-key "v" 'simpson-vertical-split
+                                 "e" 'find-file
+                                 "=" 'switch-to-buffer
+                                 "f" 'counsel-projectile-ag
+                                 "v" 'evil-window-vnew
+                                 "x" 'evil-window-new
+                                 "r" 'redraw-display
+                                 "l" 'display-line-numbers-mode)
             (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
             (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
             (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
@@ -27,3 +29,5 @@
   :ensure t
   :config (progn
             (evil-mode 1)))
+
+;;; evil.el ends here

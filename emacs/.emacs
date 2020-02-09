@@ -15,6 +15,7 @@
 (load "~/dotfiles/emacs/ide.el")
 (load "~/dotfiles/emacs/languages/ruby.el")
 (load "~/dotfiles/emacs/languages/javascript.el")
+(load "~/dotfiles/emacs/hydras.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -23,7 +24,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (xref-js2 js2-refactor js2-mode json-mode web-mode markdown-mode counsel-projectile projectile evil-leader evil-magit magit ivy doom-themes doom-modeline use-package evil))))
+    (hydra xref-js2 js2-refactor js2-mode json-mode web-mode markdown-mode counsel-projectile projectile evil-leader evil-magit magit ivy doom-themes doom-modeline use-package evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

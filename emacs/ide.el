@@ -62,9 +62,8 @@
   :config (progn
             (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)))
 
-(add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
-(add-hook 'smartparens-enabled-hook #'turn-on-show-smartparens-mode)
 (add-hook 'js-mode-hook #'smartparens-mode)
 (add-hook 'ruby-mode-hook #'smartparens-mode)
 
+(show-smartparens-global-mode t)
 ;;; ide.el ends here

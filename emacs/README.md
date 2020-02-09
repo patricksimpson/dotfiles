@@ -15,6 +15,7 @@ Lightweight, fast, and looks sick...
  - [ivy](https://github.com/abo-abo/swiper)
  - [projectile](https://github.com/bbatsov/projectile)
    - [counsel-projectile](https://github.com/ericdanan/counsel-projectile)
+   - [projectile-rails](https://github.com/asok/projectile-rails)
  - [flycheck](https://github.com/flycheck/flycheck)
  - [tide](https://github.com/ananthakumaran/tide)
  - [company](https://github.com/company-mode/company-mode)
@@ -36,7 +37,9 @@ Lightweight, fast, and looks sick...
    - [js2](https://github.com/mooz/js2-mode)
    - [json](https://github.com/joshwnj/json-mode)
    - [js2refactor](https://github.com/magnars/js2-refactor.el)
+   - [xref-js2](https://github.com/NicolasPetton/xref-js2)
  - Ruby
    - [inf-ruby](https://github.com/nonsequitur/inf-ruby/)
    - [robe-mode](https://github.com/dgutov/robe)
    - [rspec-mode](https://github.com/pezra/rspec-mode)
+   - [rubocopfmt](https://github.com/jimeh/rubocopfmt.el)
