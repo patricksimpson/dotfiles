@@ -22,6 +22,8 @@
             (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
             (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
             (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+            (define-key evil-normal-state-map (kbd "gc")  'simpson-comment)
+                                                
             (evil-ex-define-cmd "W" 'save-buffer)))
 
 ;evil mode is turned on after evil-leader for initial buffer support.

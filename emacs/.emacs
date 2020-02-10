@@ -2,10 +2,12 @@
 (add-hook 'after-init-hook #'(lambda() 
 			       (setq gc-cons-threshold 800000)))
 
+
+
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
-
 
 (load "~/dotfiles/emacs/settings.el")
 (load "~/dotfiles/emacs/functions.el")
@@ -24,7 +26,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (hydra xref-js2 js2-refactor js2-mode json-mode web-mode markdown-mode counsel-projectile projectile evil-leader evil-magit magit ivy doom-themes doom-modeline use-package evil))))
+    (exec-path-from-shell hydra xref-js2 js2-refactor js2-mode json-mode web-mode markdown-mode counsel-projectile projectile evil-leader evil-magit magit ivy doom-themes doom-modeline use-package evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
