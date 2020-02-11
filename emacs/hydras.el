@@ -39,12 +39,14 @@
 (defhydra hydra-robe (:exit t)
   "
     robe mode
+    _i_ start inf-rails-console
     _r_ start robe mode
     _d_ jump to definition
     _a_ ask for and jump to defintion
     _c_ rubocop format buffer
     _s_ go to spec file
   "
+  ("i" i-rai)
   ("r" robe-start)
   ("d" robe-jump)
   ("a" robe-ask)
