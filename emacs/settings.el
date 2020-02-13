@@ -29,3 +29,12 @@
 (global-set-key (kbd "C-SPC") nil)
 
 (global-display-line-numbers-mode)
+(setq-default text-scale-mode-step 1.1)
+
+;;; OSX super bindings
+(global-set-key (kbd "s-b") 'projectile-switch-project)
+(global-set-key (kbd "s-=") 'text-scale-increase)
+(global-set-key (kbd "s--") 'text-scale-decrease)
+(global-set-key (kbd "s-0") 'text-scale-adjust)
+(global-set-key (kbd "s-p") 'projectile-find-file)
+(define-key global-map (kbd "s-t") nil)

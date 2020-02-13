@@ -32,4 +32,8 @@
   :config (progn
             (evil-mode 1)))
 
+(use-package evil-matchit
+  :ensure t
+  :config (progn
+    (global-evil-matchit-mode 1)))
 ;;; evil.el ends here

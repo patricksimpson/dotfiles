@@ -46,7 +46,7 @@
     _c_ rubocop format buffer
     _s_ go to spec file
   "
-  ("i" i-rai)
+  ("i" inf-ruby-console-rails)
   ("r" robe-start)
   ("d" robe-jump)
   ("a" robe-ask)

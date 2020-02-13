@@ -19,9 +19,10 @@
   :ensure t)
 
 (use-package robe
-  :ensure t
-  :config (progn
-            (add-hook 'ruby-mode-hook 'robe-mode)))
+  :ensure t)
+
+(use-package ruby-electric
+  :ensure t)
 
 (projectile-rails-global-mode)
 (ad-activate 'rspec-compile)
@@ -31,4 +32,6 @@
 (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   (rvm-activate-corresponding-ruby))
 
+(add-hook 'ruby-mode-hook #'ruby-electric-mode)
+(add-hook 'ruby-mode-hook #'robe-mode)
 ;;; ruby.el ends here

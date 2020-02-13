@@ -50,7 +50,6 @@
 (use-package flycheck
   :ensure t
   :defer 1
-  :init (add-hook 'after-init-hook #'global-flycheck-mode)
   :bind ("C-c '" . flycheck-mode)
   :config (progn
             (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))))
@@ -62,8 +61,9 @@
   :config (progn
             (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)))
 
+(add-hook 'js-mode-hook #'flycheck-mode)
 (add-hook 'js-mode-hook #'smartparens-mode)
 (add-hook 'ruby-mode-hook #'smartparens-mode)
-
+(add-hook 'ruby-mode-hook #'flycheck-mode)
 (show-smartparens-global-mode t)
 ;;; ide.el ends here
