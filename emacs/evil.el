@@ -14,7 +14,7 @@
                                  "e" 'find-file
                                  "=" 'switch-to-buffer
                                  "f" 'counsel-projectile-ag
-                                 "v" 'evil-window-vnew
+                                 "v" 'evil-window-vsplit
                                  "x" 'evil-window-new
                                  "r" 'redraw-display
                                  "l" 'display-line-numbers-mode)
