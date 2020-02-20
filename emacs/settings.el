@@ -31,10 +31,8 @@
 (global-display-line-numbers-mode)
 (setq-default text-scale-mode-step 1.1)
 
-(set-face-attribute 'default nil :font "Hack-13")
-(set-frame-font "Hack-13" nil t)
-(global-hl-line-mode)
-
+(set-face-attribute 'default nil :font "Monaco-12")
+(set-frame-font "Monaco-12" nil t)
 
 ;;; OSX super bindings
 (global-set-key (kbd "s-b") 'projectile-switch-project)
