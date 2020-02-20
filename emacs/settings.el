@@ -33,6 +33,7 @@
 
 (set-face-attribute 'default nil :font "Monaco-12")
 (set-frame-font "Monaco-12" nil t)
+(flyspell-mode)
 
 ;;; OSX super bindings
 (global-set-key (kbd "s-b") 'projectile-switch-project)

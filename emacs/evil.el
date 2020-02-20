@@ -7,7 +7,7 @@
             (global-evil-leader-mode)
             (evil-leader/set-leader ",")
             (define-key evil-normal-state-map "\C-p" 'projectile-find-file)
-            (define-key evil-normal-state-map (kbd "C-=") 'counsel-switch-buffer-other-window)
+            (define-key evil-normal-state-map (kbd "C-=") 'counsel-switch-buffer)
             (define-key evil-normal-state-map (kbd "C-b") 'projectile-switch-project)
             (define-key evil-normal-state-map (kbd "C-m") 'magit)
             (evil-leader/set-key "v" 'simpson-vertical-split

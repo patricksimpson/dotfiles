@@ -9,6 +9,7 @@
             (evil-leader/set-key "x" 'hydra-ide/body)
             ;;; (evil-leader/set-key "b" 'hydra-blogger/body)
             ;;; (evil-leader/set-key "a" 'hydra-org/body)
+            (evil-leader/set-key "s" 'hydra-spell/body)
             (evil-leader/set-key "p" 'hydra-robe/body)))
 
 (defhydra hydra-ide (:exit t)
@@ -35,6 +36,19 @@
   "
   ("i" string-insert-rectangle)
   ("r" string-rectangle))
+
+(defhydra hydra-spell (:exit t)
+  "
+    inserting text
+    _s_ spell fix
+    _r_ toggle flyspell-prog-mode 
+    _t_ toggle flyspell-mode 
+    _i_ ispell fix it
+  "
+  ("s" flyspell-correct-word-before-point)
+  ("r" flyspell-prog-mode)
+  ("t" flyspell-mode)
+  ("i" ispell))
 
 (defhydra hydra-robe (:exit t)
   "
