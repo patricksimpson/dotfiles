@@ -4,6 +4,25 @@ Lightweight, fast, and looks sick...
 
 ![](emacs-2020-1.png)
 
+### System Requirements 
+
+Running on a *nix OS such as Debian Linux or MacOS. 
+Not tested on Windows...
+
+These directories assumed to exist on the local file system:
+
+- Notes: `~/notes`
+- Org: `~/org`
+- Projects: `~/projects`
+
+These binaries are assumed to exist:
+
+- git
+- ag
+- ruby
+- nodejs
+
+
 ### Packages
 
 #### IDE
