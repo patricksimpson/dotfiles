@@ -18,12 +18,11 @@ These directories assumed to exist on the local file system:
 These binaries are assumed to exist:
 
 - git
-- ag
+- [ag](https://github.com/ggreer/the_silver_searcher)
 - ruby
 - nodejs
 
-
-### Packages
+### Emacs Packages - MELPA
 
 #### IDE
  
