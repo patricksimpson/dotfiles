@@ -8,7 +8,7 @@
             (evil-leader/set-key "i" 'hydra-insert-text/body)
             (evil-leader/set-key "x" 'hydra-ide/body)
             ;;; (evil-leader/set-key "b" 'hydra-blogger/body)
-            ;;; (evil-leader/set-key "a" 'hydra-org/body)
+            (evil-leader/set-key "o" 'hydra-org/body)
             (evil-leader/set-key "s" 'hydra-spell/body)
             (evil-leader/set-key "p" 'hydra-robe/body)))
 
@@ -67,4 +67,20 @@
   ("c" rubocopfmt)
   ("s" rspec-toggle-spec-and-target))
 
+(defhydra hydra-org(:exit t)
+  "
+    org mode
+    _a_ [C-c a] org-agenda
+    _c_ [C-c c] org-capture
+    _l_ [C-c l] org-store-link
+    _k_ [C-c k] copy-current-file-path
+    _s_ [C-c s] search and list-notes
+    _n_ [C-c n] new note
+  "
+  ("a" org-agenda)
+  ("c" org-capture)
+  ("l" org-store-link)
+  ("k" simpson-copy-current-file-path)
+  ("s" simpson-list-notes)
+  ("n" simpson-new-note))
 ;;; hrydas.el ends here

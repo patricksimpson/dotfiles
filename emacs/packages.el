@@ -34,3 +34,13 @@
   :config (progn
             (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))))
+
+(use-package ag
+  :ensure t)
+
+(use-package org
+  :ensure t
+  :defer 2
+  :mode (
+         ("\\.txt\\'" . org-mode)))
+

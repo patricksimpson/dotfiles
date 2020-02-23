@@ -27,6 +27,7 @@
     (set-buffer-modified-p t)))
 
 (global-set-key (kbd "C-SPC") nil)
+(global-set-key (kbd "C-c k") 'simpson-copy-current-file-path)
 
 (global-display-line-numbers-mode)
 (setq-default text-scale-mode-step 1.1)
