@@ -1,19 +1,20 @@
 ## Patrick's Emacs Config, 2020
 
-Lightweight, fast, and looks sick...
+Lightweight, fast, and beautiful.
 
 ![](emacs-2020-1.png)
 
 ### System Requirements 
 
 Running on a *nix OS such as Debian Linux or MacOS. 
-Not tested on Windows...
+
+**Not tested on Windows**
 
 These directories assumed to exist on the local file system:
 
 - Notes: `~/notes`
-- Org: `~/org`
-- Projects: `~/projects`
+- Org Mode: `~/org`
+- Projects for Projectile: `~/projects`
 
 These binaries are assumed to exist:
 
