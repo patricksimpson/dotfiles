@@ -61,9 +61,19 @@
   :config (progn
             (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)))
 
+(use-package yaml-mode
+  :ensure t)
+
+(use-package dockerfile-mode
+  :ensure t)
+
+
 (add-hook 'js-mode-hook #'flycheck-mode)
 (add-hook 'js-mode-hook #'smartparens-mode)
 (add-hook 'ruby-mode-hook #'smartparens-mode)
 (add-hook 'ruby-mode-hook #'flycheck-mode)
 (show-smartparens-global-mode t)
+
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 ;;; ide.el ends here
