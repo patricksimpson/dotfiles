@@ -30,10 +30,15 @@
         (clipboard-kill-region (point-min) (point-max)))
       (message filename))))
 
-(defun simpson-list-notes(search)
+(defun simpson-search-notes(search)
   "open notes directory"
   (interactive "sSearch Notes: ")
   (ag-dired "~/notes/" search))
+
+(defun simpson-list-notes ()
+  "open notes directory"
+  (interactive)
+  (dired "~/notes/"))
 
 (defun simpson-new-note(name)
   "Create new file for nvAlt with NAME."

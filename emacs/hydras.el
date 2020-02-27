@@ -9,6 +9,7 @@
             (evil-leader/set-key "x" 'hydra-ide/body)
             ;;; (evil-leader/set-key "b" 'hydra-blogger/body)
             (evil-leader/set-key "o" 'hydra-org/body)
+            (evil-leader/set-key "n" 'hydra-notes/body)
             (evil-leader/set-key "s" 'hydra-spell/body)
             (evil-leader/set-key "p" 'hydra-robe/body)))
 
@@ -73,14 +74,25 @@
     _a_ [C-c a] org-agenda
     _c_ [C-c c] org-capture
     _l_ [C-c l] org-store-link
+    _r_ [C-c r] org-refile
+    _q_ [C-c q] org-archive-subtree
     _k_ [C-c k] copy-current-file-path
-    _s_ [C-c s] search and list-notes
-    _n_ [C-c n] new note
   "
   ("a" org-agenda)
-  ("c" org-capture)
+  ("c" counsel-org-capture)
   ("l" org-store-link)
-  ("k" simpson-copy-current-file-path)
-  ("s" simpson-list-notes)
+  ("r" org-refile)
+  ("q" org-archive-subtree)
+  ("k" simpson-copy-current-file-path))
+
+(defhydra hydra-notes(:exit t)
+  "
+    notes 
+    _s_ search notes [C-c s] 
+    _l_ list notes
+    _n_ new note [C-c n] 
+  "
+  ("s" simpson-search-notes)
+  ("l" simpson-list-notes)
   ("n" simpson-new-note))
 ;;; hrydas.el ends here

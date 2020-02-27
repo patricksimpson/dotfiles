@@ -74,6 +74,8 @@
 (add-hook 'ruby-mode-hook #'flycheck-mode)
 (show-smartparens-global-mode t)
 
+(setq ag-highlight-search t)
+
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 ;;; ide.el ends here
