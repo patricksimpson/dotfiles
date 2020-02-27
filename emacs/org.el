@@ -36,4 +36,4 @@
          (file "~/org/work.txt")
 "* TODO %? %^g
 :CREATED: %T
-:
+:END:")))
