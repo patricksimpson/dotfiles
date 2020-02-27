@@ -36,6 +36,9 @@
 (set-frame-font "Monaco-12" nil t)
 (flyspell-mode)
 
+;;; stop making backup files!!!
+(setq make-backup-files nil)
+
 ;;; OSX super bindings
 (global-set-key (kbd "s-b") 'projectile-switch-project)
 (global-set-key (kbd "s-=") 'text-scale-increase)

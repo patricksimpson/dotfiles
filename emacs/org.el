@@ -1,5 +1,6 @@
-(setq org-directory "~/org")
+(setq org-directory "~/notes")
 (setq org-agenda-files (list
+                        org-directory
                         "~/org/inbox.txt"
                         "~/org/home.txt"
                         "~/org/work.txt"))
@@ -19,10 +20,3 @@
 "* TODO %? %^g
 :CREATED: %T
 :END:")))
-
-(use-package multi-term
-  :ensure t
-  :config (progn
-    (setq multi-term-program "/bin/zsh")
-    ;; (setq multi-term-program-switches "--login")
-    (define-key global-map (kbd "C-p") 'term-paste)))

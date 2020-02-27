@@ -44,3 +44,20 @@
   :mode (
          ("\\.txt\\'" . org-mode)))
 
+(use-package multi-term
+  :ensure t
+  :config (progn
+    (setq multi-term-program "/bin/zsh")
+    ;; (setq multi-term-program-switches "--login")
+    (define-key global-map (kbd "C-p") 'term-paste)))
+
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
