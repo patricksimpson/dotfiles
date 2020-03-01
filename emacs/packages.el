@@ -9,6 +9,16 @@
             (setq ivy-use-virtual-buffers t)
             (setq ivy-count-format "(%d/%d) ")))
 
+
+;;; Ivy mini buffer bindings
+(define-key ivy-minibuffer-map (kbd "C-n") #'ivy-next-line)
+(define-key ivy-minibuffer-map (kbd "C-p") #'ivy-previous-line)
+;;; Ivy mini buffer vim bindings
+(define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))
+(define-key ivy-minibuffer-map (kbd "C-k") #'ivy-previous-line)
+(define-key ivy-minibuffer-map (kbd "C-j") #'ivy-next-line)
+(define-key ivy-minibuffer-map (kbd "C-l") #'ivy-alt-done)
+
 (setq search-default-mode #'char-fold-to-regexp)
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)

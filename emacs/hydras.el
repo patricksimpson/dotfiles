@@ -91,10 +91,12 @@
   "
     notes 
     _v_ describe-variable 
+    _k_ describe-key
     _f_ describe-function 
     _m_ describe-mode  
   "
   ("v" describe-variable)
+  ("k" describe-key)
   ("f" describe-function)
   ("m" describe-mode))
 

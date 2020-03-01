@@ -33,11 +33,11 @@ I have a few aliases (shortcuts) that I've used for years:
 
 :skull:
 
-I've retired my vim settings. Made the switch to Emacs in ~2016. 
+I've retired my vim settings in ~2016. 
 
-I've left my dotfiles for posterity.
+Here are my dotfiles, for posterity.
 
-I used many vim plugins such as:
+I've used many vim plugins and were an inspiration for many of my current emacs settings...
 
 - Vundle
 - nerdtree
