@@ -11,7 +11,8 @@
             (define-key evil-normal-state-map (kbd "C-b") 'projectile-switch-project)
             (define-key evil-normal-state-map (kbd "C-m") 'magit)
             (evil-leader/set-key "v" 'simpson-vertical-split
-                                 "e" 'find-file
+                                 "e" 'find-file-at-point
+                                 "a" 'find-file
                                  "=" 'switch-to-buffer
                                  "f" 'counsel-projectile-ag
                                  "v" 'evil-window-vsplit

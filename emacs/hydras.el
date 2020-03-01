@@ -11,6 +11,7 @@
             (evil-leader/set-key "o" 'hydra-org/body)
             (evil-leader/set-key "n" 'hydra-notes/body)
             (evil-leader/set-key "s" 'hydra-spell/body)
+            (evil-leader/set-key "w" 'hydra-describe/body)
             (evil-leader/set-key "p" 'hydra-robe/body)))
 
 (defhydra hydra-ide (:exit t)
@@ -84,6 +85,18 @@
   ("r" org-refile)
   ("q" org-archive-subtree)
   ("k" simpson-copy-current-file-path))
+
+
+(defhydra hydra-describe(:exit t)
+  "
+    notes 
+    _v_ describe-variable 
+    _f_ describe-function 
+    _m_ describe-mode  
+  "
+  ("v" describe-variable)
+  ("f" describe-function)
+  ("m" describe-mode))
 
 (defhydra hydra-notes(:exit t)
   "
