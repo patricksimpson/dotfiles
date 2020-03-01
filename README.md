@@ -1,22 +1,54 @@
 # Install
 
-`git clone git@github.com:patricksimpson/dotfiles.git ~/.dotfiles`
+`git clone git@github.com:patricksimpson/dotfiles.git ~/dotfiles`
 
-## Shell Conf
+## Emacs
 
-Source `~/.dotfiles/bash/functions` and `~/.dotfiles/bash/aliases` in one of these:
+`ln -s ~/dotfiles/emacs/.emacs ~/.emacs`
 
-  - `.bash_profile`
-  - `.bashrc`
-  - `.zshrc`.
+## Bash/ZSH
 
-## Zsh Conf
-  - `ln -s ~/.dotfiles/zsh/.zshrc ~/.zshrc`
+I use ZSH, I use the default installs with minor adjustments to the zshrc file:
 
-## Emacs Conf
-  - `ln -s ~/.dotfiles/emacs/.emacs ~/.emacs`
-  - `ln -s ~/.dotfiles/emacs ~/.emacs.d`
+### Themes
 
-## Vim Conf
+    ZSH_THEME="dpoggi"
+    
+or 
 
-  - `ln -s ~/.dotfiles/.vimrc ~/.vimrc`
+    ZSH_THEME="blinks"
+
+### Plugins
+
+    plugins=(git ruby node npm nvm sudo rbenv postgres)
+
+### Extras 
+
+I have a few aliases (shortcuts) that I've used for years:
+
+    source ~/dotfiles/bash/bashrc.sh
+    source ~/dotfiles/bash/aliases.sh
+    
+## Vim
+
+:skull:
+
+I've retired my vim settings. Made the switch to Emacs in ~2016. 
+
+I've left my dotfiles for posterity.
+
+I used many vim plugins such as:
+
+- Vundle
+- nerdtree
+- tcomment
+- ctrlp
+- vim-fugitive
+- vim-surround
+- vim-git
+- ack
+- emmet
+- airline
+- Figlet
+- ag
+- vimux

@@ -6,14 +6,14 @@
   :config (progn
             (global-evil-leader-mode)
             (evil-leader/set-leader ",")
-            (define-key evil-normal-state-map "\C-p" 'projectile-find-file)
+            (define-key evil-normal-state-map "\C-p" 'counsel-projectile-find-file)
             (define-key evil-normal-state-map (kbd "C-=") 'counsel-switch-buffer)
-            (define-key evil-normal-state-map (kbd "C-b") 'projectile-switch-project)
+            (define-key evil-normal-state-map (kbd "C-b") 'counsel-projectile-switch-project)
             (define-key evil-normal-state-map (kbd "C-m") 'magit)
             (evil-leader/set-key "v" 'simpson-vertical-split
                                  "e" 'find-file-at-point
-                                 "a" 'find-file
-                                 "=" 'switch-to-buffer
+                                 "a" 'counsel-find-file
+                                 "=" 'counsel-switch-to-buffer
                                  "f" 'counsel-projectile-ag
                                  "v" 'evil-window-vsplit
                                  "x" 'evil-window-new

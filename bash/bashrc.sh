@@ -4,6 +4,8 @@ export HISTCONTROL=ignoreboth:erasedups
 export HISTFILESIZE=200000
 export HISTSIZE=200000
 
+export PATH="node_modules/.bin:$PATH"
+
 # emacs M-x shell
 if [ "dumb" = "$TERM" ] ; then
     alias m='cat'
