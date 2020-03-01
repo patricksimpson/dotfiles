@@ -2,6 +2,7 @@
   :ensure t)
 
 (use-package evil-leader
+
   :ensure t
   :config (progn
             (global-evil-leader-mode)
