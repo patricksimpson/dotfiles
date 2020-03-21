@@ -57,3 +57,6 @@
 
 (use-package csv-mode
   :ensure t)
+
+(use-package org-present
+  :ensure t)

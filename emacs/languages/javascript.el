@@ -5,6 +5,11 @@
             (setq js2-basic-offset 2)
             (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))))
 
+(use-package rjsx-mode
+  :ensure t
+  :config (progn
+            (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))))
+  
 (use-package js2-refactor
   :ensure t)
 
