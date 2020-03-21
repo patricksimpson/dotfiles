@@ -34,4 +34,8 @@
 
 (add-hook 'ruby-mode-hook #'ruby-electric-mode)
 (add-hook 'ruby-mode-hook #'robe-mode)
+(add-hook 'ruby-mode-hook
+  (function (lambda ()
+          (setq evil-shift-width ruby-indent-level))))
+(add-hook 'after-init-hook 'inf-ruby-switch-setup)
 ;;; ruby.el ends here

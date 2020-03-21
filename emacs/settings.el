@@ -6,13 +6,24 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq visible-bell nil)
-(setq make-backup-files nil)
-(setq auto-save-default nil)
+(setq temporary-file-directory "~/temp/emacs")
+(setq backup-by-copying t)
+(setq delete-old-versions t
+  kept-new-versions 6
+  kept-old-versions 2
+  version-control t)
+
+;; store all backup and autosave files in the tmp dir
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 (setq inhibit-splash-screen t)
 (setq confirm-kill-emacs 'yes-or-no-p)
-
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
+(setq indent-line-function 'insert-tab)
 (setq-default css-indent-offset 2)
 (setq-default typescript-indent-level 2)
 (setq-default visual-fill-column-width 160)

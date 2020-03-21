@@ -18,6 +18,7 @@
                                  "f" 'counsel-projectile-ag
                                  "v" 'evil-window-vsplit
                                  "x" 'evil-window-new
+                                 "c" 'save-some-buffers
                                  "r" 'redraw-display
                                  "l" 'display-line-numbers-mode)
             (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
@@ -25,9 +26,10 @@
             (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
             (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
             (define-key evil-normal-state-map (kbd "gc")  'simpson-comment)
-                                                
+            (setq evil-shift-width 2)
             (evil-ex-define-cmd "W" 'save-buffer)))
 
+(setq evil-shift-width 2)
 ;evil mode is turned on after evil-leader for initial buffer support.
 (use-package evil
   :ensure t

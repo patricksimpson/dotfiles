@@ -15,6 +15,7 @@ These directories assumed to exist on the local file system:
 - Notes: `~/notes`
 - Org Mode: `~/org`
 - Projects for Projectile: `~/projects`
+- Temp (backups, autosaves) files: `~/temp/emacs`
 
 These binaries are assumed to exist:
 
