@@ -19,6 +19,11 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
+;disable backup
+(setq backup-inhibited t)
+;disable auto save
+(setq auto-save-default nil)
+
 (setq inhibit-splash-screen t)
 (setq confirm-kill-emacs 'yes-or-no-p)
 (setq-default indent-tabs-mode nil)
