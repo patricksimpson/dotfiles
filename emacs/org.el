@@ -37,3 +37,11 @@
 "* TODO %? %^g
 :CREATED: %T
 :END:")))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+   (shell . t)
+   (ruby . t)
+   (js . t)
+   (emacs-lisp . t)))
