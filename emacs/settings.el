@@ -62,3 +62,7 @@
 (global-set-key (kbd "s-0") 'text-scale-adjust)
 (global-set-key (kbd "s-p") 'projectile-find-file)
 (define-key global-map (kbd "s-t") nil)
+
+(setq-default dired-details-hidden-string "---")
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+(setq dired-dwim-target t)
