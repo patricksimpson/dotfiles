@@ -19,11 +19,9 @@
    emacs ide settings
    _f_ flycheck
    _l_ line numbers
-   _p_ show smart parens
   "
   ("f" flycheck-mode)
-  ("l" display-line-numbers-mode)
-  ("p" show-smartparens-global-mode))
+  ("l" display-line-numbers-mode))
 
 (defhydra hydra-zoom (:exit t)
   "zoom"

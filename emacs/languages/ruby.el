@@ -21,9 +21,6 @@
 (use-package robe
   :ensure t)
 
-(use-package ruby-electric
-  :ensure t)
-
 (projectile-rails-global-mode)
 (ad-activate 'rspec-compile)
 (eval-after-load 'company
@@ -32,7 +29,6 @@
 (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   (rvm-activate-corresponding-ruby))
 
-(add-hook 'ruby-mode-hook #'ruby-electric-mode)
 (add-hook 'ruby-mode-hook #'robe-mode)
 (add-hook 'ruby-mode-hook
   (function (lambda ()

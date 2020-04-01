@@ -31,9 +31,6 @@
 
 (add-hook 'after-init-hook 'global-company-mode)
 
-(use-package smartparens
-  :ensure t)
-
 (use-package highlight-indentation
   :ensure t)
 
@@ -69,10 +66,14 @@
 
 
 (add-hook 'js-mode-hook #'flycheck-mode)
-(add-hook 'js-mode-hook #'smartparens-mode)
-(add-hook 'ruby-mode-hook #'smartparens-mode)
 (add-hook 'ruby-mode-hook #'flycheck-mode)
-(show-smartparens-global-mode t)
+(add-hook 'js-mode-hook #'wrap-region-mode)
+(add-hook 'ruby-mode-hook #'wrap-region-mode)
+
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 
 (setq ag-highlight-search t)
 
