@@ -48,8 +48,8 @@
 (global-display-line-numbers-mode)
 (setq-default text-scale-mode-step 1.1)
 
-(set-face-attribute 'default nil :font "Monaco-12")
-(set-frame-font "Monaco-12" nil t)
+(set-face-attribute 'default nil :font "Monaco-14")
+(set-frame-font "Monaco-14" nil t)
 (flyspell-mode)
 
 ;;; stop making backup files!!!
