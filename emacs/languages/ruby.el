@@ -4,6 +4,7 @@
 (use-package rspec-mode
   :ensure t
   :defer 1
+  :bind ("C-c v" . rspec-verify)
   :mode ("*spec.rb" . rspec-mode))
 
 (defadvice rspec-compile (around rspec-compile-around)
@@ -11,6 +12,8 @@
     ad-do-it))
 
 (use-package rubocopfmt
+
+  :bind ("C-c x" . rubocopfmt)
   :ensure t)
     ;; :init (progn
     ;; (add-hook 'ruby-mode-hook #'rubocopfmt-mode)))
@@ -34,4 +37,5 @@
   (function (lambda ()
           (setq evil-shift-width ruby-indent-level))))
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
+(setq ruby-insert-encoding-magic-comment nil)
 ;;; ruby.el ends here

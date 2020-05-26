@@ -57,14 +57,20 @@
     _r_ start robe mode
     _d_ jump to definition
     _a_ ask for and jump to defintion
+    _v_ rspec-verify
+    _x_ rspec-verify-all
     _c_ rubocop format buffer
+    _p_ rubocop format mode toggle
     _s_ go to spec file
   "
   ("i" inf-ruby-console-rails)
   ("r" robe-start)
   ("d" robe-jump)
   ("a" robe-ask)
+  ("v" rspec-verify)
+  ("x" rspec-verify-all)
   ("c" rubocopfmt)
+  ("p" rubocopfmt-mode)
   ("s" rspec-toggle-spec-and-target))
 
 (defhydra hydra-org(:exit t)
