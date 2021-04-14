@@ -50,3 +50,8 @@
         (write-file file)
       (write-region "" "" file)
       (find-file file))))
+
+(defun simpson-edit-emacs-settings ()
+  "Open the emacs main file."
+  (interactive)
+  (find-file '"~/dotfiles/emacs/settings.el"))

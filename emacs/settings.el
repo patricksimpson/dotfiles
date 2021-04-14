@@ -30,6 +30,7 @@
 (setq-default tab-width 2)
 (setq indent-line-function 'insert-tab)
 (setq-default css-indent-offset 2)
+(setq-default web-mode-markup-indent-offset 2)
 (setq-default typescript-indent-level 2)
 (setq-default visual-fill-column-width 160)
 
@@ -66,3 +67,4 @@
 (setq-default dired-details-hidden-string "---")
 (add-hook 'dired-mode-hook 'dired-hide-details-mode)
 (setq dired-dwim-target t)
+

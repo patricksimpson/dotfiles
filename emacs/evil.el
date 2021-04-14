@@ -17,6 +17,9 @@
                                  "=" 'counsel-switch-to-buffer
                                  "f" 'counsel-projectile-ag
                                  "v" 'evil-window-vsplit
+                                 "h" 'evil-window-split
+                                 "d" 'simpson-copy-current-file-path
+                                 "t" 'simpson-edit-emacs-settings
                                  "x" 'evil-window-new
                                  "c" 'save-some-buffers
                                  "r" 'redraw-display
