@@ -6,6 +6,13 @@
 
 `ln -s ~/dotfiles/emacs/.emacs ~/.emacs.el`
 
+### These directories assumed to exist on the local file system:
+
+- Notes: `~/notes`
+- Org Mode: `~/org`
+- Projects for Projectile: `~/projects`
+- Temp (backups, autosaves) files: `~/temp/emacs`
+
 ## Bash/ZSH
 
 I use ZSH, I use the default installs with minor adjustments to the zshrc file:
