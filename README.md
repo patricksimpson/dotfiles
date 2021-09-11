@@ -4,7 +4,7 @@
 
 ## Emacs
 
-`ln -s ~/dotfiles/emacs/.emacs ~/.emacs`
+`ln -s ~/dotfiles/emacs/.emacs ~/.emacs.el`
 
 ## Bash/ZSH
 

@@ -1,13 +1,20 @@
 (setq gc-cons-threshold 64000000)
 (add-hook 'after-init-hook #'(lambda() 
 			       (setq gc-cons-threshold 800000)))
-
-
-
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
+
+;; Bootstrap 'use-package'
+(eval-after-load 'gnutls
+  '(add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem"))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
+(require 'bind-key)
+(setq use-package-always-ensure t)
 
 (load "~/dotfiles/emacs/settings.el")
 (load "~/dotfiles/emacs/functions.el")

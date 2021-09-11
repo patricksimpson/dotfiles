@@ -1,9 +1,7 @@
-(use-package evil-magit
-  :ensure t)
-
 (use-package evil-leader
-
   :ensure t
+  :init
+  (setq evil-want-keybinding nil)
   :config (progn
             (global-evil-leader-mode)
             (evil-leader/set-leader ",")
@@ -36,8 +34,15 @@
 ;evil mode is turned on after evil-leader for initial buffer support.
 (use-package evil
   :ensure t
+  :init
+  (setq evil-want-keybinding nil)
   :config (progn
             (evil-mode 1)))
+
+(use-package evil-collection
+  :custom (evil-collection-setup-minibuffer t)
+  :init (evil-collection-init)
+  :ensure t)
 
 (use-package evil-matchit
   :ensure t
