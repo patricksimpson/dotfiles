@@ -5,6 +5,11 @@
 (use-package magit
   :ensure t)
 
+(use-package rainbow-delimiters
+  :ensure t
+  :config (progn
+            (rainbow-delimiters-mode))
+
 (use-package projectile
   :ensure t
   :bind (("C-c b" . projectile-switch-project)
@@ -27,8 +32,6 @@
   :config (progn
             (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))))
-
-(use-package ag
   :ensure t)
 
 (use-package org

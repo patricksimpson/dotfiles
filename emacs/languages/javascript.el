@@ -1,3 +1,9 @@
+(use-package prettier-js
+  :ensure t)
+
+(require 'prettier-js)
+(require 'rainbow-delimiters)
+
 (use-package js2-mode
   :ensure t
   :config (progn
@@ -30,6 +36,7 @@
                            (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
 
 
+
 (add-hook 'js2-mode-hook
   (function (lambda ()
               (setq evil-shift-width js-indent-level))))
@@ -38,3 +45,7 @@
   (function (lambda ()
               (setq evil-shift-width js-indent-level))))
 
+(add-hook 'rjsx-mode-hook 'prettier-js-mode)
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'rjsx-mode-hook 'rainbow-delimiters-mode-enable)
+(add-hook 'js2-mode-hook 'rainbow-delimiters-mode-enable)

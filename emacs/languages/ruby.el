@@ -32,10 +32,11 @@
 (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   (rvm-activate-corresponding-ruby))
 
+(add-hook 'ruby-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'ruby-mode-hook #'robe-mode)
 (add-hook 'ruby-mode-hook
   (function (lambda ()
-          (setq evil-shift-width ruby-indent-level))))
+          (setq evil-shift-width 2))))
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 (setq ruby-insert-encoding-magic-comment nil)
 ;;; ruby.el ends here

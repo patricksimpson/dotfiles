@@ -19,6 +19,7 @@
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
+  (setq web-mode-scss-indent-offset 2)
   (setq web-mode-code-indent-offset 2))
 
 (add-hook 'web-mode-hook  'my-web-mode-hook)
@@ -68,8 +69,10 @@
 
 (add-hook 'js-mode-hook #'flycheck-mode)
 (add-hook 'ruby-mode-hook #'flycheck-mode)
-(add-hook 'js-mode-hook #'wrap-region-mode)
-(add-hook 'ruby-mode-hook #'wrap-region-mode)
+(add-hook 'css-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'scss-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'less-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
 
 (use-package evil-surround
   :ensure t
