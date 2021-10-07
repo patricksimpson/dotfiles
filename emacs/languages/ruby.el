@@ -15,8 +15,8 @@
 
   :bind ("C-c x" . rubocopfmt)
   :ensure t)
-    ;; :init (progn
-    ;; (add-hook 'ruby-mode-hook #'rubocopfmt-mode)))
+    :init (progn
+    (add-hook 'ruby-mode-hook #'rubocopfmt-mode))
 
 (use-package projectile-rails
   :ensure t)

@@ -17,6 +17,9 @@
 
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
+  (lambda ()
+    (when (string-equal "tsx" (file-name-extension buffer-file-name))
+    (setup-tide-mode)))
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-scss-indent-offset 2)
@@ -26,6 +29,9 @@
 
 ;;; JSON
 (use-package json-mode
+  :ensure t)
+
+(use-package graphql-mode
   :ensure t)
 
 (use-package company
@@ -58,6 +64,7 @@
   :after flycheck
   :defer 1
   :config (progn
+            (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
             (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)))
 
 (use-package yaml-mode

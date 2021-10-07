@@ -16,6 +16,7 @@
   :config (progn
             (setq js-indent-level 2)
             (setq js2-basic-offset 2)
+            (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
             (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))))
   
 (use-package js2-refactor

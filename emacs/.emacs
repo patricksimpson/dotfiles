@@ -34,7 +34,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(prettier-js rainbow-delimiters evil-surround wrap-region rjsx-mode org-present csv-mode ivy-rich evil-org ag multi-term evil-matchit ruby-electric company-robe exec-path-from-shell hydra xref-js2 js2-refactor js2-mode json-mode web-mode markdown-mode counsel-projectile projectile evil-leader evil-magit magit ivy doom-themes doom-modeline use-package evil)))
+   '(graphql-mode prettier-js rainbow-delimiters evil-surround wrap-region rjsx-mode org-present csv-mode ivy-rich evil-org ag multi-term evil-matchit ruby-electric company-robe exec-path-from-shell hydra xref-js2 js2-refactor js2-mode json-mode web-mode markdown-mode counsel-projectile projectile evil-leader evil-magit magit ivy doom-themes doom-modeline use-package evil)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
