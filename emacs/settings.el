@@ -51,6 +51,19 @@
 
 (set-face-attribute 'default nil :font "Monaco-14")
 (set-frame-font "Monaco-14" nil t)
+
+(set-fontset-font t 'symbol "Apple Color Emoji")
+(set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+(set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
+(set-fontset-font t 'symbol "Symbola" nil 'append)
+
+;; (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji")
+;;                   frame 'prepend)
+
+(when (member "Noto Color Emoji" (font-family-list))
+  (set-fontset-font
+    t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend))
+
 (flyspell-mode)
 
 ;;; stop making backup files!!!

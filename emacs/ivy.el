@@ -30,3 +30,4 @@
 (setq counsel-mode t)
 (setq ivy-warp t)
 (setq ivy-height 6)
+(setq ivy-use-selectable-prompt t)
