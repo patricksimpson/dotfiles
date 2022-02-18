@@ -10,6 +10,9 @@
   :config (progn
             (rainbow-delimiters-mode))
 
+(use-package import-js
+    :ensure t)
+
 (use-package projectile
   :ensure t
   :bind (("C-c b" . projectile-switch-project)

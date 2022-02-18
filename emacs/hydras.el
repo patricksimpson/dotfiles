@@ -12,6 +12,7 @@
             (evil-leader/set-key "n" 'hydra-notes/body)
             (evil-leader/set-key "s" 'hydra-spell/body)
             (evil-leader/set-key "w" 'hydra-describe/body)
+            (evil-leader/set-key "m" 'hydra-import/body)
             (evil-leader/set-key "p" 'hydra-robe/body)))
 
 (defhydra hydra-ide (:exit t)
@@ -103,6 +104,23 @@
   ("k" describe-key)
   ("f" describe-function)
   ("m" describe-mode))
+
+(defhydra hydra-import(:exit t)
+  "
+    notes 
+    _f_ fix imports
+    _i_ import js
+    _m_ goto import
+    _g_ goto import
+    _s_ start import js
+    _r_ run import js
+  "
+  ("f" import-js-fix)
+  ("i" import-js-import)
+  ("m" import-js-goto)
+  ("g" import-js-goto)
+  ("s" run-import-js)
+  ("r" run-import-js))
 
 (defhydra hydra-notes(:exit t)
   "
