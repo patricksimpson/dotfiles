@@ -80,4 +80,9 @@
 (setq-default dired-details-hidden-string "---")
 (add-hook 'dired-mode-hook 'dired-hide-details-mode)
 (setq dired-dwim-target t)
-
+(setq history-length 25)
+(savehist-mode 1)
+(recentf-mode 1)
+(save-place-mode 1)
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
