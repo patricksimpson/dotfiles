@@ -9,7 +9,6 @@
             (evil-leader/set-key "x" 'hydra-ide/body)
             ;;; (evil-leader/set-key "b" 'hydra-blogger/body)
             (evil-leader/set-key "o" 'hydra-org/body)
-            (evil-leader/set-key "n" 'hydra-notes/body)
             (evil-leader/set-key "s" 'hydra-spell/body)
             (evil-leader/set-key "w" 'hydra-describe/body)
             (evil-leader/set-key "m" 'hydra-import/body)

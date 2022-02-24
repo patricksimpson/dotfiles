@@ -66,3 +66,13 @@
 
 (use-package org-present
   :ensure t)
+
+(use-package neotree
+  :ensure t)
+
+(with-eval-after-load 'neotree
+  (add-hook 'neotree-mode-hook 
+    (lambda () (with-current-buffer " *NeoTree*"
+      (setq-local linum-mode nil)))))
+
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))

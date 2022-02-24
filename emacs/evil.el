@@ -20,6 +20,7 @@
                                  "t" 'simpson-edit-emacs-settings
                                  "x" 'evil-window-new
                                  "c" 'save-some-buffers
+                                 "n" 'neotree-project-dir
                                  "r" 'redraw-display
                                  "l" 'display-line-numbers-mode)
             (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
@@ -49,3 +50,21 @@
   :config (progn
     (global-evil-matchit-mode 1)))
 ;;; evil.el ends here
+
+
+  (defun neotree-project-dir ()
+    "Open NeoTree using the git root."
+    (interactive)
+    (let ((project-dir (projectile-project-root))
+          (file-name (buffer-file-name)))
+      (neotree-toggle)
+      (if project-dir
+          (if (neo-global--window-exists-p)
+              (progn
+                (neotree-dir project-dir)
+                (neotree-find file-name)))
+        (message "Could not find git project root."))))
+
+;; Disable line-numbers minor mode for neotree
+  (add-hook 'neo-after-create-hook
+            (lambda (&rest _) (display-line-numbers-mode -1)))
