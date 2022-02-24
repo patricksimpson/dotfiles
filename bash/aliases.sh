@@ -56,7 +56,6 @@ alias bjs="cd ~/projects/beam/js-frontend"
 alias beamjs="cd ~/projects/beam/js-frontend"
 alias bauth="cd ~/projects/beam/authentication-server"
 alias bauth="cd ~/projects/beam/authentication-server"
-alias emacs="~/emacs.sh"
 alias ec='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient'
 alias x='xmodestart || xmodestart'
 alias screentext='screencapture -i /tmp/t.png && tesseract /tmp/t.png - | pbcopy && rm /tmp/t.png'
