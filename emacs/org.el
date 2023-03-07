@@ -2,13 +2,11 @@
 (setq org-agenda-files (list
                         org-directory
                         "~/org/inbox.txt"
-                        "~/org/home.txt"
-                        "~/org/work.txt"))
+                        ))
 
 (setq org-refile-targets
       '(("done.txt" :maxlevel . 1)
-        ("home.txt" :maxlevel . 1)
-        ("work.txt" :maxlevel . 1)))
+        ))
 
 (global-set-key (kbd "C-c c") 'counsel-org-capture)
 (global-set-key (kbd "C-c t") 'org-tags-view)
@@ -27,16 +25,7 @@
 "* TODO %? %^g
 :CREATED: %T
 :END:")
-      ("h" "Home" entry
-         (file "~/org/home.txt")
-"* TODO %? %^g
-:CREATED: %T
-:END:")
-        ("w" "Work" entry
-         (file "~/org/work.txt")
-"* TODO %? %^g
-:CREATED: %T
-:END:")))
+        ))
 
 (org-babel-do-load-languages
  'org-babel-load-languages

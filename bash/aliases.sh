@@ -1,6 +1,7 @@
 alias gA='git add -A'
 alias ga='git add'
 alias gp='git push'
+alias gpo='git push -u origin head'
 alias gl='git log'
 alias gs='git status'
 alias gd='git diff'

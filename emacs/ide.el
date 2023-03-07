@@ -90,4 +90,5 @@
 
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+(add-to-list 'auto-mode-alist '("\\.jb\\'" . ruby-mode))
 ;;; ide.el ends here
