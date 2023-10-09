@@ -14,9 +14,10 @@
 (use-package rubocopfmt
 
   :bind ("C-c x" . rubocopfmt)
-  :ensure t)
+  :custom (rubocopfmt-include-unsafe-cops t)
+  :ensure t
     :init (progn
-    (add-hook 'ruby-mode-hook #'rubocopfmt-mode))
+    (add-hook 'ruby-mode-hook #'rubocopfmt-mode)))
 
 (use-package projectile-rails
   :ensure t)

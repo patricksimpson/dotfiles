@@ -14,6 +14,7 @@
                                  "a" 'counsel-find-file
                                  "=" 'counsel-switch-to-buffer
                                  "f" 'counsel-projectile-ag
+                                 "g" 'project-find-regexp
                                  "v" 'evil-window-vsplit
                                  "h" 'evil-window-split
                                  "d" 'simpson-copy-current-file-path

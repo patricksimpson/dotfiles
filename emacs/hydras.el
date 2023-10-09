@@ -60,6 +60,8 @@
     _v_ rspec-verify
     _x_ rspec-verify-all
     _c_ rubocop format buffer
+    _f_ rubocop fix buffer
+    _r_ rubocop fix buffer
     _p_ rubocop format mode toggle
     _s_ go to spec file
   "
@@ -69,6 +71,8 @@
   ("a" robe-ask)
   ("v" rspec-verify)
   ("x" rspec-verify-all)
+  ("f" (shell-command "rubocop -A" nil nil))
+  ("r" (shell-command "rubocop -A" nil nil))
   ("c" rubocopfmt)
   ("p" rubocopfmt-mode)
   ("s" rspec-toggle-spec-and-target))

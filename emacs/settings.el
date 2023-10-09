@@ -46,7 +46,9 @@
 (global-set-key (kbd "C-SPC") nil)
 (global-set-key (kbd "C-c k") 'simpson-copy-current-file-path)
 
-(global-display-line-numbers-mode)
+(global-display-line-numbers-mode 1)
+(setq display-line-numbers 'relative)
+(setq display-line-numbers-type 'relative)
 (setq-default text-scale-mode-step 1.1)
 
 (set-face-attribute 'default nil :font "Monaco-14")
@@ -94,3 +96,7 @@
    (getenv "PATH")
   )
 )
+(define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
+  (lambda () (rainbow-mode 1)))
+
+(my-global-rainbow-mode 1)
