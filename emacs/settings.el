@@ -54,6 +54,7 @@
 (set-face-attribute 'default nil :font "Monaco-14")
 (set-frame-font "Monaco-14" nil t)
 
+(setq scroll-preserve-screen-position t)
 (set-fontset-font t 'symbol "Apple Color Emoji")
 (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
 (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
