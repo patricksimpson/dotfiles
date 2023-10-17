@@ -17,3 +17,5 @@
 (all-the-icons-completion-mode)
 ;run once and forget it.
 ;; (all-the-icons-install-fonts )
+;; For doom-mode-line
+;; (nerd-icons-install-fonts ) 
