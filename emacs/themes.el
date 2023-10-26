@@ -1,18 +1,21 @@
-(use-package doom-modeline
-      :ensure t
-      :defer t
-      :init (add-hook 'after-init-hook #'doom-modeline-mode))
-
 (use-package doom-themes
   :ensure t
   :init (load-theme 'doom-tomorrow-night t))
 
 (use-package all-the-icons
-  :defer 1
-  :ensure t)
+   :defer 1
+   :ensure t)
+
+(use-package mood-line
+   :ensure t
+   ;; Enable mood-line
+   :config
+   (mood-line-mode))
+
+(setq mood-line-glyph-alist mood-line-glyphs-unicode)
 
 (use-package all-the-icons-completion
-  :ensure t)
+   :ensure t)
 
 (all-the-icons-completion-mode)
 ;run once and forget it.

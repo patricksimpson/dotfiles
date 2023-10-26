@@ -73,6 +73,11 @@
 (use-package dockerfile-mode
   :ensure t)
 
+(use-package flycheck-yamllint
+  :ensure t
+  :config
+  (add-hook 'yaml-mode-hook 'flycheck-mode))
+
 
 (add-hook 'js-mode-hook #'flycheck-mode)
 (add-hook 'ruby-mode-hook #'flycheck-mode)
@@ -85,6 +90,18 @@
   :ensure t
   :config
   (global-evil-surround-mode 1))
+
+;; (use-package lsp-mode
+;;   :init
+;;   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+;;   (setq lsp-keymap-prefix "C-c l")
+;;   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+;;          (ruby-mode . lsp)
+;;          (rjsx-mode . lsp)
+;;          (js2-mode . lsp)
+;;          ;; if you want which-key integration
+;;          (lsp-mode . lsp-enable-which-key-integration))
+;;   :commands lsp)
 
 (setq ag-highlight-search t)
 

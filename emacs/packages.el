@@ -76,3 +76,15 @@
       (setq-local linum-mode nil)))))
 
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+
+(use-package nerd-icons
+  :ensure t
+  ;; :custom
+  ;; The Nerd Font you want to use in GUI
+  ;; "Symbols Nerd Font Mono" is the default and is recommended
+  ;; but you can use any other Nerd Font if you want
+  )
+(use-package pbcopy
+  :ensure t)
+
+(turn-on-pbcopy)
