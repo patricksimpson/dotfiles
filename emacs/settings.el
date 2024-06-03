@@ -90,13 +90,6 @@
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 
-
-(setenv "PATH"
-  (concat
-   "~/bin" ";"
-   (getenv "PATH")
-  )
-)
 ;; (define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
 ;;   (lambda () (rainbow-mode 1)))
 

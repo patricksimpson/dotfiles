@@ -7,6 +7,16 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
+
+(unless (package-installed-p 'quelpa)
+  (with-temp-buffer
+    (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
+    (eval-buffer)
+    (quelpa-self-upgrade)))
+
+(require 'quelpa)
+(require 'quelpa-use-package)
+
 ;;; HTML/CSS
 (use-package web-mode
   :ensure t
@@ -52,12 +62,22 @@
   :bind (:map dired-mode-map
               ("i" . dired-subtree-toggle)))
 
+(use-package exec-path-from-shell
+  :ensure t
+  :config (exec-path-from-shell-initialize))
+(exec-path-from-shell-initialize)
+
+(use-package add-node-modules-path
+  :ensure t)
+
 (use-package flycheck
   :ensure t
   :defer 1
   :bind ("C-c '" . flycheck-mode)
   :config (progn
-            (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))))
+            (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))
+            (add-to-list 'flycheck-checkers 'javascript-eslint)
+            ))
 
 (use-package tide
   :ensure t
@@ -78,6 +98,14 @@
   :config
   (add-hook 'yaml-mode-hook 'flycheck-mode))
 
+(eval-after-load 'js-mode
+  '(add-hook 'rjsx-mode-hook #'add-node-modules-path)
+  )
+
+
+(add-hook 'js2-mode-hook 'add-node-modules-path)
+(add-hook 'rjsx-mode-hook 'add-node-modules-path)
+
 
 (add-hook 'js-mode-hook #'flycheck-mode)
 (add-hook 'ruby-mode-hook #'flycheck-mode)
@@ -85,6 +113,8 @@
 (add-hook 'scss-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'less-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+(flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+(flycheck-add-mode 'javascript-eslint 'js2-mode)
 
 (use-package evil-surround
   :ensure t
